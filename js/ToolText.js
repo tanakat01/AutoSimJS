@@ -62,6 +62,7 @@ class ToolText extends Tool {
         this.getCanvas().commitTransaction(false);
     }
     keyTyped(g, c) {
+        if (c == "Shift" || c == "Control" || c == "Meta" || c == "Alt") return;
         if(this.current != null) {
             let prev = this.current.getBounds(g);
             this.current.exposeCursor(this.getCanvas(), g);
