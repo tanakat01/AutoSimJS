@@ -21,7 +21,7 @@ class TapeContents {
     set(position, value) {
         let which = position < 0 ? this.negatives : this.positives;
         if (position < 0) position = -position
-        while (which.length <= position) which.push(blank);
+        while (which.length <= position) which.push(this.blank);
         which[position] = value;
     }
     getMaximumPosition() {
