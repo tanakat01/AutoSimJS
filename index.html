@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Automaton Simulator</title>
+    <link rel=stylesheet href="autosim.css">
+    <script type="text/javascript" src="js/const.js"></script>
+    <script type="text/javascript" src="js/GroupedWriter.js"></script>
+    <script type="text/javascript" src="js/GroupedReader.js"></script>
+    <script type="text/javascript" src="js/GraphicsUtil.js"></script>
+    <script type="text/javascript" src="js/Tool.js"></script>
+    <script type="text/javascript" src="js/ToolState.js"></script>
+    <script type="text/javascript" src="js/ToolTransition.js"></script>
+    <script type="text/javascript" src="js/ToolText.js"></script>
+    <script type="text/javascript" src="js/AutomatonComponent.js"></script>
+    <script type="text/javascript" src="js/AutomatonLabel.js"></script>
+    <script type="text/javascript" src="js/Label.js"></script>
+    <script type="text/javascript" src="js/Transition.js"></script>
+    <script type="text/javascript" src="js/State.js"></script>
+    <script type="text/javascript" src="js/StateSet.js"></script>
+    <script type="text/javascript" src="js/Alphabet.js"></script>
+    <script type="text/javascript" src="js/Tape.js"></script>
+    <script type="text/javascript" src="js/Canvas.js"></script>
+    <script type="text/javascript" src="js/Automaton.js"></script>
+    <script type="text/javascript" src="js/DFA.js"></script>
+    <script type="text/javascript" src="js/NFA.js"></script>
+    <script type="text/javascript" src="js/DPDA.js"></script>
+    <script type="text/javascript" src="js/TuringMachine.js"></script>
+  </head>
+  <body onContextMenu="return false;">
+    <h1> Automaton Simulator</h1>
+    <hr>
+    <div class="cp_navi">
+    <ul>
+      <li>
+        <a href="#">File <span class="caret"></span></a>
+	<div>
+	  <ul>
+	    <li><a href="#new">New      &#9658;<span class="caret1"></span></a>
+              <div>
+                <ul>
+                  <li><a href="#dfa" onClick="new_machine('dfa')">Deterministic Finite Automaton</a></li>
+<!--
+                  <li><a href="#nfa" onClick="new_machine('nfa')">Nondeterministic Finite Automaton</a></li>
+                  <li><a href="#pda" onClick="new_machine('pda')">Deterministic Push-Down Automaton</a></li>
+                  <li><a href="#tm" onClick="new_machine('tm')">Turing Machine</a></li>
+-->
+                </ul>
+              </div>
+            </li>
+	    <li><a href="#open" onClick="button_open()">Open</a></li>
+	    <li><a href="#save" onClick="button_save()">Save</a></li>
+	    <li><a href="#print" onClick="button_print()">Print</a></li>
+<!--	    <li><a href="#quit" onClick="window.close()">Quit</a></li> -->
+	  </ul>
+	</div>
+      </li>
+      </li>
+<!--      <li><a href="#test" onClick="button_test()">Test</a></li> -->
+    </ul>
+    </div>
+    <hr>
+ <div class="cp_tools">
+  <ul>
+    <li>
+      <div id="tools">
+        <ul>
+          <li><button id="state_button" type=button onclick="onState()"><img src="img/state.png" class="ic"></button></li>
+          <li><button id="transition_button" type=button onclick="onTransition()"><img src="img/transition.png" class="ic"></button></li>
+          <li><button id="text_button" type=button onclick="onText()">
+              <img src="img/text.png" class="ic"></button></li>
+          <li><button type=button onclick="onPlay()">
+              <img src="img/start.png" class="ic">
+          </button></li>
+        </ul>
+      </div>
+    </li>
+    <li>
+      <div id="tmtools">
+        <ul>
+          <li><button type=button onclick="alert('button要素は、この使用例のようにスクリプトと組み合わせて利用されることが多いようです。')">
+              <img src="img/pause.png" class="ic">
+          </button></li>
+          <li><button type=button onclick="alert('button要素は、この使用例のようにスクリプトと組み合わせて利用されることが多いようです。')">
+              <img src="img/forward.png" class="ic">
+          </button></li>
+          <li><button type=button onclick="alert('button要素は、この使用例のようにスクリプトと組み合わせて利用されることが多いようです。')">
+              <img src="img/backward.png" class="ic">
+          </button></li>
+      <li><button type=button onclick="alert('button要素は、この使用例のようにスクリプトと組み合わせて利用されることが多いようです。')">
+          <img src="img/restart.png" class="ic">
+      </button></li>
+        </ul>
+      </div>
+    </li>
+  </ul>
+</div>
+ <div class="popup" id="statepopup">
+  <ul>
+   <li onClick="popup(0)">Initial State</li>
+   <li onClick="popup(1)">Final State</li>
+   <li onClick="popup(2)">Delete</li>
+   </ul>
+ </div>
+ <div class="popup" id="transition_popup">
+  <ul>
+   <li onClick="popup('a')">a</li>
+   <li onClick="popup('b')">b</li>
+   <li onClick="popup('c')">c</li>
+   <li onClick="popup('d')">d</li>
+   <li onClick="popup('e')">e</li>
+   <li onClick="popup('f')">f</li>
+   <li onClick="popup('g')">g</li>
+   <li onClick="popup('h')">h</li>
+   <li onClick="popup('i')">i</li>
+   <li onClick="popup('j')">j</li>
+   <li onClick="popup('*')">else</li>
+   <li onClick="popup('Delete')">Delete</li>
+  </ul>
+ </div>
+  <div class="popup" id="text_popup">
+  <ul>
+   <li onClick="popup('Delete')">Delete</li>
+  </ul>
+ </div>
+ <canvas id="maincanvas" width=800 height=400>
+</canvas>
+<div id="tape">
+<canvas id="tapecanvas" width=800 height=100>
+</canvas>
+</div>
+    <script type="text/javascript" src="js/main.js"></script>
+<div id="testfile">
+My first automaton
+aabac
+abaCa
+cabac
+
+Exercise 1: lock
+abcabc
+abababCababC
+ababCbababC
+cababCabc
+abcababCabc
+
+Execrise 2: three a before b
+B
+ab
+aaaB
+aaaab
+aaaaaaaaaB
+
+Exercise 3: three a before c
+bbbbc
+aaabbbC
+abababC
+aaaC
+aabc
+aaaabc
+
+Exercise 4: (a|b)*c
+Cab
+aaabbbC
+abababC
+ababaaabbCabc
+
+Exercise 5: ((a|b)*c)*
+Cab
+aaabbbC
+abababC
+ababaaabbCab
+ababaaabbCabC
+CCCCCCC
+
+Exercise 6: abac or baca
+abaCAAAAA
+ababaC
+babaC
+bacA
+bbbbaabaCAAABA
+cabaC
+cbacA
+
+Exercise 7: vending machine
+aaCcaCc
+dcabC
+cdacbC
+adbcaC
+baC
+bbbC
+
+Exercise 8: electric lock
+ABcaaaaB
+ABcaBBBcababB
+ABAcabbA
+ABABAcbA
+
+Exercise 9: even numbers
+bAAbAAAbAbbbbbAAA
+AbA
+
+Exercise 10: multiple of three
+baaBAAAbabbbbbaaaB
+AbabaBbaaB
+
+Exercise 11: multiple of six
+baabAAAbabbbbbaaabbbA
+
+Exercise 12: 2A=B
+ababbBbbbaaB
+</div>
+</body>
+</html>
+  
