@@ -17,8 +17,10 @@ class Dimension {
 }
 
 class Cursor {
+/*
     static CROSSHAIR_CURSOR = 0;
     static TEXT_CURSOR = 1;
+*/
     static getDefaultCursor() {
         return 0;
     }
@@ -193,6 +195,7 @@ class Writer {
 }
 
 class GraphicsUtil {
+/*
     static H_LEFT = -1;
     static H_CENTER = 0;
     static H_RIGHT = 1;
@@ -200,6 +203,7 @@ class GraphicsUtil {
     static V_CENTER = 0;
     static V_BASELINE = 1;
     static V_BOTTOM = 2;
+*/
     static switchToWidth(g, width) {
         g.switchToWidth(width);
     }
@@ -233,15 +237,15 @@ class GraphicsUtil {
         let ret = new Rectangle(x, y, width, height);
 
         switch(halign) {
-        case GraphicsUtil.H_CENTER: ret.translate(-(width / 2), 0); break;
-        case GraphicsUtil.H_RIGHT:  ret.translate(-width, 0); break;
+        case GraphicsUtil_H_CENTER: ret.translate(-(width / 2), 0); break;
+        case GraphicsUtil_H_RIGHT:  ret.translate(-width, 0); break;
         default: ;
         }
         switch(valign) {
-        case GraphicsUtil.V_TOP:      break;
-        case GraphicsUtil.V_CENTER:   ret.translate(0, -(ascent / 2)); break;
-        case GraphicsUtil.V_BASELINE: ret.translate(0, -ascent); break;
-        case GraphicsUtil.V_BOTTOM:   ret.translate(0, -height); break;
+        case GraphicsUtil_V_TOP:      break;
+        case GraphicsUtil_V_CENTER:   ret.translate(0, -(ascent / 2)); break;
+        case GraphicsUtil_V_BASELINE: ret.translate(0, -ascent); break;
+        case GraphicsUtil_V_BOTTOM:   ret.translate(0, -height); break;
         default: ;
         }
         return ret;
@@ -261,7 +265,7 @@ class GraphicsUtil {
         //g.drawString(text, x, y);
     }
     static drawCenteredTextfunction(g, text, x, y) {
-        this.drawText(g, text, x, y, GraphisUtil.H_CENTER, GraphicsUtil.V_CENTER);
+        this.drawText(g, text, x, y, GraphisUtil_H_CENTER, GraphicsUtil_V_CENTER);
     }
 }
 
@@ -272,7 +276,9 @@ class JOptionPane {
     static showConfirmDialog(parent, msg, title, optionType) {
         return (window.confirm(msg) ? 1 : 0);
     }
+/*
     static YES_NO_OPTION = 2;
     static YES_OPTION = 1;
     static NO_OPTION = 0;
+*/
 }

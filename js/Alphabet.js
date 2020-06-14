@@ -6,15 +6,17 @@
  */
 
 class Alphabet {
+/*
     static EPSILON = 'ε';
     static ELSE = '*';
     static BLANK = '_';
     static alphabet = "abcdefghijklmnopqrstuvwxyz";
-
+*/
+    
     static toString(what) {
         switch(what) {
-        case Alphabet.ELSE:      return "else";
-        case Alphabet.BLANK:     return "blank";
+        case Alphabet_ELSE:      return "else";
+        case Alphabet_BLANK:     return "blank";
         default:        return "" + what;
         }
     }

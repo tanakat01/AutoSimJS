@@ -19,8 +19,8 @@ class AutomatonLabel extends AutomatonComponent {
         super(automaton);
         this.x = 0;
         this.y = 0;
-        this.halign = GraphicsUtil.H_LEFT;
-        this.valign = GraphicsUtil.V_BASELINE;
+        this.halign = GraphicsUtil_H_LEFT;
+        this.valign = GraphicsUtil_V_BASELINE;
         let owner = new AutomatonLabelOwner(this);
         this.label = new Label(owner);
     }
@@ -56,28 +56,28 @@ class AutomatonLabel extends AutomatonComponent {
         super.print(fout);
         this.label.print(fout);
         fout.print("coord "); fout.printlnGroup(Math.round(this.x) + " " + Math.round(this.y));
-        if(this.halign != GraphicsUtil.H_LEFT) {
+        if(this.halign != GraphicsUtil_H_LEFT) {
             fout.print("halign");
             switch(thishalign) {
-            case GraphicsUtil.H_RIGHT:
+            case GraphicsUtil_H_RIGHT:
                 fout.printlnGroup("right");
                 break;
-            case GraphicsUtil.H_CENTER:
+            case GraphicsUtil_H_CENTER:
                 fout.printlnGroup("center");
                 break;
             default: fout.printlnGroup("??");
             }
         }
-        if(this.valign != GraphicsUtil.V_BASELINE) {
+        if(this.valign != GraphicsUtil_V_BASELINE) {
             fout.print("valign");
             switch(this.halign) {
-            case GraphicsUtil.V_BOTTOM:
+            case GraphicsUtil_V_BOTTOM:
                 fout.printlnGroup("bottom");
                 break;
-            case GraphicsUtil.V_CENTER:
+            case GraphicsUtil_V_CENTER:
                 fout.printlnGroup("center");
                 break;
-            case GraphicsUtil.V_TOP:
+            case GraphicsUtil_V_TOP:
                 fout.printlnGroup("top");
                 break;
             default: fout.printlnGroup("??");
@@ -101,14 +101,14 @@ class AutomatonLabel extends AutomatonComponent {
             return true;
         } else if(key == "halign") {
             let val = fin.readGroup();
-            if(val == "right") this.halign = GraphicsUtil.H_RIGHT;
-            if(val =="center") this.halign = GraphicsUtil.H_CENTER;
+            if(val == "right") this.halign = GraphicsUtil_H_RIGHT;
+            if(val =="center") this.halign = GraphicsUtil_H_CENTER;
             return true;
         } else if(key =="valign") {
             let val = fin.readGroup();
-            if(val =="bottom") this.halign = GraphicsUtil.V_BOTTOM;
-            if(val =="center") this.halign = GraphicsUtil.V_CENTER;
-            if(val =="top") this.halign = GraphicsUtil.V_TOP;
+            if(val =="bottom") this.halign = GraphicsUtil_V_BOTTOM;
+            if(val =="center") this.halign = GraphicsUtil_V_CENTER;
+            if(val =="top") this.halign = GraphicsUtil_V_TOP;
             return true;
         } else if(this.label.setKey(key, fin)) {
             return true;

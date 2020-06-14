@@ -13,8 +13,8 @@ class MyTapeListener {
     }
 
     keyTyped(tape, what) {
-        if(what == Alphabet.EPSILON) return;
-        if(what == Alphabet.ELSE) return;
+        if(what == Alphabet_EPSILON) return;
+        if(what == Alphabet_ELSE) return;
         if(what == ' ') return;
 
         if(what == 'BackSpace') {
@@ -77,18 +77,20 @@ class MySnapshot{
         let pos = this.automaton.canvas.getTape().getCursorPosition() - 1;
         this.automaton.canvas.getTape().setCursorPosition(pos);
         this.automaton.canvas.getTape().setHeadPositionAnimate(pos).start();
-        this.automaton.canvas.getTape().write(pos, Alphabet.BLANK);
+        this.automaton.canvas.getTape().write(pos, Alphabet_BLANK);
     }
 }
 
 class Automaton {
+/*
     static NUM_FRAMES = 15;
-
+*/
+    
     constructor() {
         this.states = [];
         this.transitions = [];
         this.components = [];
-        this.alphabet = new Alphabet(Alphabet.alphabet + Alphabet.ELSE); 
+        this.alphabet = new Alphabet(Alphabet_alphabet + Alphabet_ELSE); 
         this.current = new StateSet(this);
         this.current_draw = this.current;
         this.canvas = null;
@@ -394,7 +396,7 @@ class Automaton {
     // FILE METHODS
     //
     print(fout) {
-        fout.println("Automaton Simulator, " + Main.FILE_VERSION_NAME);
+        fout.println("Automaton Simulator, " + Main_FILE_VERSION_NAME);
         if(this instanceof TuringMachine) fout.print("turing");
         else if(this instanceof DFA) fout.print("dfa");
         else if(this instanceof NFA) fout.print("nfa");
@@ -436,7 +438,7 @@ class Automaton {
 
     static read(fin) {
         let what = fin.readLine();
-        if(!what == "Automaton Simulator, " + Main.FILE_VERSION_NAME) {
+        if(!what == "Automaton Simulator, " + Main_FILE_VERSION_NAME) {
             throw new Error("unrecognized file version");
         }
 

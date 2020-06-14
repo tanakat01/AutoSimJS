@@ -9,7 +9,7 @@ class ToolState extends Tool {
     constructor(canvas) {
         super(canvas);
         this.current = null;
-        this.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
+        this.setCursor(Cursor.getPredefinedCursor(Cursor_CROSSHAIR_CURSOR));
     }
     mousePressed(g, e) {
         //console.log('ToolState mousePressed');

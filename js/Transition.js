@@ -6,11 +6,13 @@
  */
 
 class Transition extends AutomatonComponent {
+/*
     static ARROW_LEN = 15.0;
     static ARROW_THETA = Math.PI / 6.0;
     static DEFAULT_OFFSET_THETA = Math.PI / 6.0;
     static DEFAULT_SELFLOOP_THETA = 0.75 * Math.PI;
     static CURSOR_R = State_RADIUS / 2;
+*/
     /*
       private class TransitMenuItem extends JCheckBoxMenuItem
       implements ActionListener {
@@ -35,8 +37,8 @@ class Transition extends AutomatonComponent {
         this.src = src;
         this.dst = dst;
         this.transits = "";
-        this.offset_theta = Transition.DEFAULT_OFFSET_THETA;
-        if(src == dst) this.offset_theta = Transition.DEFAULT_SELFLOOP_THETA;
+        this.offset_theta = Transition_DEFAULT_OFFSET_THETA;
+        if(src == dst) this.offset_theta = Transition_DEFAULT_SELFLOOP_THETA;
         this.label = new Label(this);
         
         this.bounds = null; // bounding box
@@ -160,10 +162,10 @@ class Transition extends AutomatonComponent {
         } else {
             cursor_angle = this.astart + (1.0 - fraction) * this.alength;
         }
-        this.cursor_x = Math.floor(this.cx + this.r * Math.cos(cursor_angle) - Transition.CURSOR_R);
-        this.cursor_y = Math.floor(this.cy - this.r * Math.sin(cursor_angle) - Transition.CURSOR_R);
+        this.cursor_x = Math.floor(this.cx + this.r * Math.cos(cursor_angle) - Transition_CURSOR_R);
+        this.cursor_y = Math.floor(this.cy - this.r * Math.sin(cursor_angle) - Transition_CURSOR_R);
 //        console.log('this.cursor_x = ' + this.cursor_x);
-        let w = 2 * Transition.CURSOR_R + 4;
+        let w = 2 * Transition_CURSOR_R + 4;
         this.getAutomaton().getCanvas().expose(old_x - 2, old_y - 2, w, w);
         if(this.cursor_exists) {
             this.getAutomaton().getCanvas().expose(this.cursor_x - 2, this.cursor_y - 2, w, w);
@@ -191,7 +193,7 @@ class Transition extends AutomatonComponent {
             for(let i = 0; i < this.transits.length; i++) {
                 if(i > 0) ret += ",";
                 let c = this.transits.charAt(i);
-                if(c == Alphabet.BLANK) ret += "_";
+                if(c == Alphabet_BLANK) ret += "_";
                 else ret += Alphabet.toString(c);
             }
             return ret.toString(); // no need
@@ -357,8 +359,8 @@ class Transition extends AutomatonComponent {
 
         if(this.src == this.dst) {
             // compute center and radius
-            this.r = State.RADIUS;
-            let dist = this.r + (Math.sqrt(2.0) - 1.0) * State.RADIUS;
+            this.r = State_RADIUS;
+            let dist = this.r + (Math.sqrt(2.0) - 1.0) * State_RADIUS;
             this.cx = x0 + dist * Math.cos(this.offset_theta);
             this.cy = y0 + dist * Math.sin(this.offset_theta);
 
@@ -376,8 +378,8 @@ class Transition extends AutomatonComponent {
             draw_arc = false;
 
             let theta = Math.atan2(y1 - y0, x1 - x0);
-            let dy = (3.0 + State.RADIUS) * Math.sin(theta);
-            let dx = (3.0 + State.RADIUS) * Math.cos(theta);
+            let dy = (3.0 + State_RADIUS) * Math.sin(theta);
+            let dx = (3.0 + State_RADIUS) * Math.cos(theta);
             x0 += dx;
             y0 += dy;
             x1 -= dx;
@@ -393,13 +395,13 @@ class Transition extends AutomatonComponent {
             this.arrowx = Math.round(ax);
             this.arrowy = Math.round(ay);
             this.arrowxl = Math.round(ax
-                                      + Transition.ARROW_LEN * Math.cos(ath + Transition.ARROW_THETA));
+                                      + Transition_ARROW_LEN * Math.cos(ath + Transition_ARROW_THETA));
             this.arrowyl = Math.round(ay
-                                      + Transition.ARROW_LEN * Math.sin(ath + Transition.ARROW_THETA));
+                                      + Transition_ARROW_LEN * Math.sin(ath + Transition_ARROW_THETA));
             this.arrowxr = Math.round(ax
-                                      + Transition.ARROW_LEN * Math.cos(ath - Transition.ARROW_THETA));
+                                      + Transition_ARROW_LEN * Math.cos(ath - Transition_ARROW_THETA));
             this.arrowyr = Math.round(ay
-                                      + Transition.ARROW_LEN * Math.sin(ath - Transition.ARROW_THETA));
+                                      + Transition_ARROW_LEN * Math.sin(ath - Transition_ARROW_THETA));
         } else {
             // compute center and radius
             let phi = Math.atan2(y1 - y0, x1 - x0);
@@ -413,7 +415,7 @@ class Transition extends AutomatonComponent {
             // compute arc parameters
             theta0 = Math.atan2(y0 - this.cy, x0 - this.cx);
             theta1 = Math.atan2(y1 - this.cy, x1 - this.cx);
-            let stateth = 2.0 * Math.asin((3.0 + State.RADIUS) / 2.0 / this.r);
+            let stateth = 2.0 * Math.asin((3.0 + State_RADIUS) / 2.0 / this.r);
             if(this.normalizeRadians((phi + this.offset_theta) - theta0) < Math.PI) {
                 theta0 += stateth;
                 theta1 -= stateth;
@@ -449,17 +451,17 @@ class Transition extends AutomatonComponent {
             let ax = this.cx + this.r * Math.cos(theta1);
             let ay = this.cy + this.r * Math.sin(theta1);
             let ath = this.thetaa;
-            ath += 0.75 * Math.asin(Transition.ARROW_LEN / 2.0 / this.r);
+            ath += 0.75 * Math.asin(Transition_ARROW_LEN / 2.0 / this.r);
             this.arrowx = Math.round(ax);
             this.arrowy = Math.round(ay);
             this.arrowxl = Math.round(ax
-                                      + Transition.ARROW_LEN * Math.cos(ath + Transition.ARROW_THETA));
+                                      + Transition_ARROW_LEN * Math.cos(ath + Transition_ARROW_THETA));
             this.arrowyl = Math.round(ay
-                                      + Transition.ARROW_LEN * Math.sin(ath + Transition.ARROW_THETA));
+                                      + Transition_ARROW_LEN * Math.sin(ath + Transition_ARROW_THETA));
             this.arrowxr = Math.round(ax
-                                      + Transition.ARROW_LEN * Math.cos(ath - Transition.ARROW_THETA));
+                                      + Transition_ARROW_LEN * Math.cos(ath - Transition_ARROW_THETA));
             this.arrowyr = Math.round(ay
-                                      + Transition.ARROW_LEN * Math.sin(ath - Transition.ARROW_THETA));
+                                      + Transition_ARROW_LEN * Math.sin(ath - Transition_ARROW_THETA));
         }
 
         // put y-coordinates back into actual space
@@ -475,19 +477,19 @@ class Transition extends AutomatonComponent {
             this.textx = Math.round(this.cx + this.r * Math.cos(textth));
             this.texty = Math.round(this.cy - this.r * Math.sin(textth));
             textth = 180.0 * textth / Math.PI; // into degrees
-            this.halign = GraphicsUtil.H_CENTER;
-            this.valign = GraphicsUtil.V_CENTER;
+            this.halign = GraphicsUtil_H_CENTER;
+            this.valign = GraphicsUtil_V_CENTER;
 
             if(textth > 202.5 && textth < 357.5) {
-                this.texty += 2; this.valign = GraphicsUtil.V_TOP;
+                this.texty += 2; this.valign = GraphicsUtil_V_TOP;
             } else if(textth > 22.5 && textth < 157.5) {
-                this.texty -= 2; this.valign = GraphicsUtil.V_BOTTOM;
+                this.texty -= 2; this.valign = GraphicsUtil_V_BOTTOM;
             }
 
             if(textth > 292.5 || textth < 67.5) {
-                this.textx += 2; this.halign = GraphicsUtil.H_LEFT;
+                this.textx += 2; this.halign = GraphicsUtil_H_LEFT;
             } else if(textth > 112.5 && textth < 247.5) {
-                this.textx -= 2; this.halign = GraphicsUtil.H_RIGHT;
+                this.textx -= 2; this.halign = GraphicsUtil_H_RIGHT;
             }
         }
 
@@ -557,9 +559,9 @@ class Transition extends AutomatonComponent {
 
         if(this.cursor_exists) {
             g.setColor(Color.green);
-            g.fillOval(this.cursor_x, this.cursor_y, 2 * Transition.CURSOR_R, 2 * Transition.CURSOR_R);
+            g.fillOval(this.cursor_x, this.cursor_y, 2 * Transition_CURSOR_R, 2 * Transition_CURSOR_R);
             g.setColor(Color.black);
-            g.drawOval(this.cursor_x, this.cursor_y, 2 * Transition.CURSOR_R, 2 * Transition.CURSOR_R);
+            g.drawOval(this.cursor_x, this.cursor_y, 2 * Transition_CURSOR_R, 2 * Transition_CURSOR_R);
         }
     }
     showMenu(clientX, clientY) {

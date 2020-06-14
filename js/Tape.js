@@ -9,14 +9,14 @@ class TapeContents {
     constructor() {
         this.positives = [];
         this.negatives = [];
-        this.blank = Alphabet.BLANK;
+        this.blank = Alphabet_BLANK;
     }
     get(position) {
         let which = position < 0 ? this.negatives : this.positives;
         if (position < 0) position = -position;
-        if (position >= which.length) return Alphabet.BLANK;
+        if (position >= which.length) return Alphabet_BLANK;
         let ret = which[position];
-        return ret == null ? Alphabet.BLANK : ret;
+        return ret == null ? Alphabet_BLANK : ret;
     }
     set(position, value) {
         let which = position < 0 ? this.negatives : this.positives;
@@ -27,7 +27,7 @@ class TapeContents {
     getMaximumPosition() {
         for (let i = this.positives.length - 1; i >= 0; i--) {
             let val = this.positives[i];
-            if (val != null && val != Alphabet.BLANK) return i;
+            if (val != null && val != Alphabet_BLANK) return i;
         }
         return 0;
     }
@@ -54,26 +54,26 @@ class TapeRepresentation {
         let x;
         // draw background for cursor
         if(this.hasFocus()) {
-            x = (this.tape.cursor - base) * Tape.BLANK_WIDTH;
+            x = (this.tape.cursor - base) * Tape_BLANK_WIDTH;
             g.setColor(Color.black);
-            g.fillRect(x, 0, Tape.BLANK_WIDTH, Tape.BLANK_HEIGHT);
+            g.fillRect(x, 0, Tape_BLANK_WIDTH, Tape_BLANK_HEIGHT);
         }
 
         // draw dividing lines
         GraphicsUtil.switchToWidth(g, 3);
         g.setColor(Color.gray);
         g.drawLine(0, 0, width, 0);
-        g.drawLine(0, Tape.BLANK_HEIGHT, width, Tape.BLANK_HEIGHT);
-        for(let i = 0; i * Tape.BLANK_WIDTH < width; i++) {
-            x = i * Tape.BLANK_WIDTH;
-            g.drawLine(x, 0, x, Tape.BLANK_HEIGHT);
+        g.drawLine(0, Tape_BLANK_HEIGHT, width, Tape_BLANK_HEIGHT);
+        for(let i = 0; i * Tape_BLANK_WIDTH < width; i++) {
+            x = i * Tape_BLANK_WIDTH;
+            g.drawLine(x, 0, x, Tape_BLANK_HEIGHT);
         }
         GraphicsUtil.switchToWidth(g, 1);
 
         // draw head of reader
         if(this.tape.show_head) {
-            x = Math.floor((this.tape.head_draw - base) * Tape.BLANK_WIDTH
-                           + Tape.BLANK_WIDTH / 2);
+            x = Math.floor((this.tape.head_draw - base) * Tape_BLANK_WIDTH
+                           + Tape_BLANK_WIDTH / 2);
             let xp = [ x - 10, x + 10, x ];
             let yp = [ 3, 3, 13 ];
             g.setColor(Color.green);
@@ -84,14 +84,14 @@ class TapeRepresentation {
 
         // draw characters
         g.setColor(Color.black);
-        x = Tape.BLANK_WIDTH / 2;
-        for(let i = 0; i * Tape.BLANK_WIDTH < width; i++, x += Tape.BLANK_WIDTH) {
+        x = Tape_BLANK_WIDTH / 2;
+        for(let i = 0; i * Tape_BLANK_WIDTH < width; i++, x += Tape_BLANK_WIDTH) {
             let c = this.tape.contents.get(base + i);
-            if(c == Alphabet.BLANK) continue;
+            if(c == Alphabet_BLANK) continue;
             let is_cur = (base + i == this.tape.cursor && this.hasFocus());
             if(is_cur) g.setColor(Color.white);
-            GraphicsUtil.drawText(g, "" + c, x, Tape.BLANK_HEIGHT / 2,
-                                  GraphicsUtil.H_CENTER, GraphicsUtil.V_CENTER);
+            GraphicsUtil.drawText(g, "" + c, x, Tape_BLANK_HEIGHT / 2,
+                                  GraphicsUtil_H_CENTER, GraphicsUtil_V_CENTER);
             if(is_cur) g.setColor(Color.black);
         }
     }
@@ -99,16 +99,16 @@ class TapeRepresentation {
         this.repaint();
     }
     locatePosition(x, y) {
-        return this.tape.scroll.getValue() + Math.floor(x / Tape.BLANK_WIDTH);
+        return this.tape.scroll.getValue() + Math.floor(x / Tape_BLANK_WIDTH);
     }
     computeSize() {
         let len = this.tape.contents.getMaximumPosition() - this.tape.contents.getMinimumPosition() + 1;
-        len += Tape.BLANKS_SHOW;
-        if(this.tape.extends_left) len += Tape.BLANKS_SHOW;
+        len += Tape_BLANKS_SHOW;
+        if(this.tape.extends_left) len += Tape_BLANKS_SHOW;
         if(len == this.last_length) return;
         /*
-          setMinimumSize(new Dimension(Tape.BLANK_WIDTH, Tape.BLANK_HEIGHT));
-          setPreferredSize(new Dimension(Tape.BLANK_WIDTH * len, Tape.BLANK_HEIGHT));
+          setMinimumSize(new Dimension(Tape_BLANK_WIDTH, Tape_BLANK_HEIGHT));
+          setPreferredSize(new Dimension(Tape_BLANK_WIDTH * len, Tape_BLANK_HEIGHT));
         */
         if(this.tape.scroll != null) this.tape.scroll.computeValues();
     }
@@ -160,9 +160,11 @@ class TapeScroll {
 }
 
 class Tape {
+    /*
     static BLANK_HEIGHT = 40;
     static BLANK_WIDTH  = 40;
     static BLANKS_SHOW =  2;
+    */
     constructor(canvas) {
         this.listeners = [];
         this.canvas = canvas;

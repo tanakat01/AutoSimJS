@@ -35,7 +35,7 @@ class StateSet {
         let traversed = [];
         let transitions = this.automaton.getTransitions();
 
-        if(what == Alphabet.EPSILON) {
+        if(what == Alphabet_EPSILON) {
             for(var state of this.states) {
                 ret.add(state);
             }
@@ -52,7 +52,7 @@ class StateSet {
 
             // handle ELSE transitions
             for(var transition of transitions) {
-                if(transition.transitsOn(Alphabet.ELSE)
+                if(transition.transitsOn(Alphabet_ELSE)
                    && this.contains(transition.getSource())
                    && !used.contains(transition.getSource())) {
                     ret.add(transition.getDest());
@@ -66,7 +66,7 @@ class StateSet {
         while(changed) {
             changed = false;
             for(var transition of transitions) {
-                if(transition.transitsOn(Alphabet.EPSILON)
+                if(transition.transitsOn(Alphabet_EPSILON)
                    && ret.contains(transition.getSource())) {
                     if(!ret.contains(transition.getDest())) {
                         ret.add(transition.getDest());

@@ -12,9 +12,9 @@ class ToolText extends Tool {
     constructor(canvas) {
         super(canvas);
         this.current = null;
-        this.halign = GraphicsUtil.H_LEFT;
-        this.valign = GraphicsUtil.V_BASELINE;
-        this.setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
+        this.halign = GraphicsUtil_H_LEFT;
+        this.valign = GraphicsUtil_V_BASELINE;
+        this.setCursor(Cursor.getPredefinedCursor(Cursor_TEXT_CURSOR));
     }
 
     select(g) {

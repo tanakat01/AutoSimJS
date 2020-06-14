@@ -6,7 +6,9 @@
  */
 
 class Canvas{
+    /*
     static EXTRA_SPACE = 50;
+    */
     constructor(jscanvas) {
         // private JScrollPane parent = null;
         this.toolbox = null;
@@ -188,7 +190,7 @@ class Canvas{
     }
     computeSize() {
         let ret = this.automaton.getDimensions(this.getGraphics());
-        ret.setSize(ret.width + Canvas.EXTRA_SPACE, ret.height + Canvas.EXTRA_SPACE);
+        ret.setSize(ret.width + Canvas_EXTRA_SPACE, ret.height + Canvas_EXTRA_SPACE);
         if(this.parent != null) this.dimAdd(ret, this.parent.getViewport().getSize());
         this.setPreferredSize(ret);
         this.revalidate();

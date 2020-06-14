@@ -6,8 +6,10 @@
  */
 
 class State  extends AutomatonComponent{
+/*
     static RADIUS = State_RADIUS;
-    static INITARROW_LEN = 1.5 * Transition.ARROW_LEN;
+    static INITARROW_LEN = 1.5 * Transition_ARROW_LEN;
+*/
     constructor(automaton) {
         super(automaton);
         //console.log('State constructor, automaton=' + automaton + 'this.automaton=' + this.automaton);
@@ -55,19 +57,19 @@ class State  extends AutomatonComponent{
     }
 
     getBounds(rect, g) {
-        rect.setBounds(this.x - State.RADIUS, this.y - State.RADIUS, 2 * State.RADIUS, 2 * State.RADIUS);
+        rect.setBounds(this.x - State_RADIUS, this.y - State_RADIUS, 2 * State_RADIUS, 2 * State_RADIUS);
         rect.grow(2, 2);
         if(this.isInitial()) {
-            let dx = this.x - State.RADIUS / Math.sqrt(2.0);
-            let dy = this.y + State.RADIUS / Math.sqrt(2.0);
-            rect.add(dx - State.INITARROW_LEN - 2, dy + State.INITARROW_LEN + 2);
+            let dx = this.x - State_RADIUS / Math.sqrt(2.0);
+            let dy = this.y + State_RADIUS / Math.sqrt(2.0);
+            rect.add(dx - State_INITARROW_LEN - 2, dy + State_INITARROW_LEN + 2);
         }
         return rect;
     }
 
     isIn(x0, y0, g) {
-        // console.log('this.x=' + this.x + ',x0=' + x0 + ',this.y=' + this.y + ',y0=' + y0 + ',State.RADIUS=' + State.RADIUS);
-        return (this.x - x0) * (this.x - x0) + (this.y - y0) * (this.y - y0) < State.RADIUS * State.RADIUS;
+        // console.log('this.x=' + this.x + ',x0=' + x0 + ',this.y=' + this.y + ',y0=' + y0 + ',State_RADIUS=' + State_RADIUS);
+        return (this.x - x0) * (this.x - x0) + (this.y - y0) * (this.y - y0) < State_RADIUS * State_RADIUS;
     }
     /*
 
@@ -106,29 +108,29 @@ class State  extends AutomatonComponent{
     */
     draw(g) {
         if(this.isInitial()) {
-            let dx = this.x - State.RADIUS / Math.sqrt(2.0);
-            let dy = this.y + State.RADIUS / Math.sqrt(2.0);
+            let dx = this.x - State_RADIUS / Math.sqrt(2.0);
+            let dy = this.y + State_RADIUS / Math.sqrt(2.0);
             let th = 0.75 * Math.PI;
             let xp = [
-                Math.floor(dx + Transition.ARROW_LEN
-                           * Math.cos(th + Transition.ARROW_THETA)),
+                Math.floor(dx + Transition_ARROW_LEN
+                           * Math.cos(th + Transition_ARROW_THETA)),
                 Math.floor(dx),
-                Math.floor(dx + Transition.ARROW_LEN
-                           * Math.cos(th - Transition.ARROW_THETA)),
+                Math.floor(dx + Transition_ARROW_LEN
+                           * Math.cos(th - Transition_ARROW_THETA)),
             ];
             let yp = [
-                Math.floor(dy + Transition.ARROW_LEN
-                           * Math.sin(th + Transition.ARROW_THETA)),
+                Math.floor(dy + Transition_ARROW_LEN
+                           * Math.sin(th + Transition_ARROW_THETA)),
                 Math.floor(dy),
-                Math.floor(dy + Transition.ARROW_LEN
-                           * Math.sin(th - Transition.ARROW_THETA)),
+                Math.floor(dy + Transition_ARROW_LEN
+                           * Math.sin(th - Transition_ARROW_THETA)),
             ];
 
             GraphicsUtil.switchToWidth(g, 3);
             g.setColor(Color.blue);
             g.drawPolyline(xp, yp, 3);
-            g.drawLine(Math.floor(dx -State.INITARROW_LEN),
-                       Math.floor(dy +State.INITARROW_LEN),
+            g.drawLine(Math.floor(dx -State_INITARROW_LEN),
+                       Math.floor(dy +State_INITARROW_LEN),
                        Math.floor(dx), Math.floor(dy));
         }
         let bg = this.getAutomaton().getCurrentDraw().contains(this)
@@ -136,20 +138,20 @@ class State  extends AutomatonComponent{
         GraphicsUtil.switchToWidth(g, 3);
         if(this.isFinal()) {
             g.setColor(Color.white);
-            g.fillOval(this.x - State.RADIUS, this.y - State.RADIUS, 2 * State.RADIUS, 2 * State.RADIUS);
+            g.fillOval(this.x - State_RADIUS, this.y - State_RADIUS, 2 * State_RADIUS, 2 * State_RADIUS);
             g.setColor(bg);
-            g.fillOval(this.x - State.RADIUS + 6, this.y - State.RADIUS + 6,
-                       2 * State.RADIUS - 12, 2 * State.RADIUS - 12);
+            g.fillOval(this.x - State_RADIUS + 6, this.y - State_RADIUS + 6,
+                       2 * State_RADIUS - 12, 2 * State_RADIUS - 12);
             g.setColor(Color.black);
-            g.drawOval(this.x - State.RADIUS, this.y - State.RADIUS, 2 * State.RADIUS, 2 * State.RADIUS);
-            g.drawOval(this.x - State.RADIUS + 5, this.y - State.RADIUS + 5,
-                       2 * State.RADIUS - 10, 2 * State.RADIUS - 10);
+            g.drawOval(this.x - State_RADIUS, this.y - State_RADIUS, 2 * State_RADIUS, 2 * State_RADIUS);
+            g.drawOval(this.x - State_RADIUS + 5, this.y - State_RADIUS + 5,
+                       2 * State_RADIUS - 10, 2 * State_RADIUS - 10);
         } else {
             g.setColor(bg);
-            g.fillOval(this.x - State.RADIUS + 1, this.y - State.RADIUS + 1,
-                       2 * State.RADIUS - 2, 2 * State.RADIUS - 2);
+            g.fillOval(this.x - State_RADIUS + 1, this.y - State_RADIUS + 1,
+                       2 * State_RADIUS - 2, 2 * State_RADIUS - 2);
             g.setColor(Color.black);
-            g.drawOval(this.x - State.RADIUS, this.y - State.RADIUS, 2 * State.RADIUS, 2 * State.RADIUS);
+            g.drawOval(this.x - State_RADIUS, this.y - State_RADIUS, 2 * State_RADIUS, 2 * State_RADIUS);
         }
     }
     showMenu(clientX, clientY) {

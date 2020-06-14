@@ -16,7 +16,7 @@ class ToolTransition extends Tool {
         this.cur_x;
         this.cur_y;
         this.to_expose = null;
-        this.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
+        this.setCursor(Cursor.getPredefinedCursor(Cursor_CROSSHAIR_CURSOR));
     }
 
     select(g) {
@@ -106,18 +106,18 @@ class ToolTransition extends Tool {
 
         let th = Math.atan2(this.start.getY() - y, this.start.getX() - x);
         let xp = [
-            Math.floor(x + Transition.ARROW_LEN
-                       * Math.cos(th + Transition.ARROW_THETA)),
+            Math.floor(x + Transition_ARROW_LEN
+                       * Math.cos(th + Transition_ARROW_THETA)),
             Math.floor(x),
-            Math.floor(x + Transition.ARROW_LEN
-                       * Math.cos(th - Transition.ARROW_THETA)),
+            Math.floor(x + Transition_ARROW_LEN
+                       * Math.cos(th - Transition_ARROW_THETA)),
         ];
         let yp = [
-            Math.floor(y + Transition.ARROW_LEN
-                       * Math.sin(th + Transition.ARROW_THETA)),
+            Math.floor(y + Transition_ARROW_LEN
+                       * Math.sin(th + Transition_ARROW_THETA)),
             Math.floor(y),
-            Math.floor(y + Transition.ARROW_LEN
-                       * Math.sin(th - Transition.ARROW_THETA)),
+            Math.floor(y + Transition_ARROW_LEN
+                       * Math.sin(th - Transition_ARROW_THETA)),
         ];
 
         GraphicsUtil.switchToWidth(g, 3);

@@ -19,7 +19,7 @@ class DFATransition extends Transition {
         super(automaton, src, dst);
     }
     canBeTransit(what) {
-        if(what == Alphabet.EPSILON) return false;
+        if(what == Alphabet_EPSILON) return false;
 
         for(const transition of this.automaton.transitions) {
             if(this != transition

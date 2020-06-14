@@ -61,7 +61,7 @@ class GroupedWriter {
     }
     
     doPrint(s) {
-        console.log(['s=', s]);
+        //console.log(['s=', s]);
         for(let newline = s.indexOf('\n'); newline >= 0;
             newline = s.indexOf('\n')) {
             if(newline > 0) {

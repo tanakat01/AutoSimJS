@@ -110,11 +110,11 @@ function popup(n) {
 }
 function button_save() {
 //    console.log('button_save');
-    const a = document.createElement('a');
     let str = new StringWriter();
     let fout = new GroupedWriter(str);
     canvas.getAutomaton().print(fout);
-    a.href = 'data:text/plain,' + encodeURIComponent(str.text);
+/*
+    a.href = 'data:application/octet-stream,' + encodeURIComponent(str.text);
     a.download = 'machine.txt';
     a.style.display = 'none';
     document.body.appendChild(a); // ※ DOM が構築されてからでないとエラーになる
@@ -122,6 +122,28 @@ function button_save() {
     setTimeout(function() {
         document.body.removeChild(a);
     }, 0);
+*/
+    let a = document.createElement('a');
+    let url = URL.createObjectURL(new Blob([str.text], {
+  type: "application/octet-stream"
+    }));
+    a.href = url;
+    a.download = 'machine.txt';
+    a.style.display = 'none';
+    document.body.appendChild(a); // ※ DOM が構築されてからでないとエラーになる
+    a.click();
+    setTimeout(function() {
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+    }, 0);
+    
+    /*
+    let url = URL.createObjectURL(new Blob([str.text], {
+  type: "application/octet-stream"
+    }));
+    location.href = url;
+*/
+    
 }
 function openAutomaton(e) {
 //    console.log(e.target.files.length);
