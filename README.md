@@ -1,7 +1,12 @@
+AutoSimJS
+
+https://tanakat01.github.io/AutoSimJS/
+
 AutoSim
 =======
-Original home: http://www.cburch.com/proj/autosim/index.html
+Original java version
+home: http://www.cburch.com/proj/autosim/index.html
 
-Java version source : https://github.com/profbbrown/AutoSim
+github : https://github.com/profbbrown/AutoSim
 
 =======
