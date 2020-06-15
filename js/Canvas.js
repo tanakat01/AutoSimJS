@@ -111,7 +111,7 @@ class Canvas{
         return new Graphics(this.jscanvas.getContext('2d'));
     }
     grabFocus() {
-        this.jscanvas.focus();
+        this.jscanvas.focus({preventScroll:true});
     }
 
     setAutomaton(automaton) {
