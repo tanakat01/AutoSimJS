@@ -107,6 +107,19 @@ img.ic {
     height: 30px;
 }
 
+.cp_navi > ul > li > div > ul > li > span {
+/*	color: #ffffff; */
+    color: black;
+        font-weight:bold;
+	display: block;
+/*	padding: 12px 24px; */
+	padding: 5px 10px;
+	text-decoration: none;
+}
+.cp_navi > ul > li > div > ul > li:hover > span {
+	color: rgb( 255, 255, 255 );
+}
+
 .cp_navi > ul > li > div > ul > li > a {
 /*	color: #ffffff; */
     color: black;

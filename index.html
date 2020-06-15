@@ -32,10 +32,10 @@
     <div class="cp_navi">
     <ul>
       <li>
-        <a href="#">File <span class="caret"></span></a>
+        <a>File <span class="caret"></span></a>
 	<div>
 	  <ul>
-	    <li><a href="#new">New      &#9658;<span class="caret1"></span></a>
+	    <li><span>New      &#9658;<span class="caret1"></span></span>
               <div>
                 <ul>
                   <li><a href="#dfa" onClick="new_machine('dfa')">Deterministic Finite Automaton</a></li>
@@ -47,10 +47,11 @@
                 </ul>
               </div>
             </li>
-	    <li><a href="#open" onClick="button_open()">Open</a></li>
-	    <li><a href="#save" onClick="button_save()">Save</a></li>
-	    <li><a href="#print" onClick="button_print()">Print</a></li>
-<!--	    <li><a href="#quit" onClick="window.close()">Quit</a></li> -->
+	    <li><span onClick="button_open()">Open<span></li>
+	    <li><span onclick="button_save()">Save</span></li>
+            <li><span onClick="button_print()">Print</span></li>
+<!--	    <li><a href="#print" onClick="button_print()">Print</a></li>
+	    <li><a href="#quit" onClick="window.close()">Quit</a></li> -->
 	  </ul>
 	</div>
       </li>

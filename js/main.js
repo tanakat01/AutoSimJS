@@ -109,41 +109,38 @@ function popup(n) {
     canvas.popup(n);
 }
 function button_save() {
-//    console.log('button_save');
     let str = new StringWriter();
     let fout = new GroupedWriter(str);
     canvas.getAutomaton().print(fout);
-/*
-    a.href = 'data:application/octet-stream,' + encodeURIComponent(str.text);
-    a.download = 'machine.txt';
-    a.style.display = 'none';
-    document.body.appendChild(a); // ※ DOM が構築されてからでないとエラーになる
-    a.click();
-    setTimeout(function() {
-        document.body.removeChild(a);
-    }, 0);
-*/
+    let content = str.text;
+//    let content = 'abc';
+    let name = 'machine.txt';
+    let mineType = 'application/octet-stream';
+    let blob = new Blob([content], { type: mineType});
+
     let a = document.createElement('a');
-    let url = URL.createObjectURL(new Blob([str.text], {
-  type: "application/octet-stream"
-    }));
-    a.href = url;
-    a.download = 'machine.txt';
-    a.style.display = 'none';
-    document.body.appendChild(a); // ※ DOM が構築されてからでないとエラーになる
-    a.click();
-    setTimeout(function() {
+    a.download = name;
+    a.target = '_blank';
+    if (window.navigator.msSaveBlob) {
+        // for IE
+        window.navigator.msSaveBlob(blob, name)
+    }
+    else if (window.URL && window.URL.createObjectURL) {
+        // for Firefox
+        a.href = window.URL.createObjectURL(blob);
+        document.body.appendChild(a);
+        a.click();
         document.body.removeChild(a);
-        window.URL.revokeObjectURL(url);
-    }, 0);
-    
-    /*
-    let url = URL.createObjectURL(new Blob([str.text], {
-  type: "application/octet-stream"
-    }));
-    location.href = url;
-*/
-    
+    }
+    else if (window.webkitURL && window.webkitURL.createObject) {
+        // for Chrome
+        a.href = window.webkitURL.createObjectURL(blob);
+        a.click();
+    }
+    else {
+        // for Safari
+        window.open('data:' + mimeType + ';base64,' + window.Base64.encode(content), '_blank');
+    }
 }
 function openAutomaton(e) {
 //    console.log(e.target.files.length);
