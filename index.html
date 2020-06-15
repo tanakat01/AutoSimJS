@@ -25,9 +25,12 @@
     <script type="text/javascript" src="js/NFA.js"></script>
     <script type="text/javascript" src="js/DPDA.js"></script>
     <script type="text/javascript" src="js/TuringMachine.js"></script>
+    <script type="text/javascript" src="js/Test.js"></script>
   </head>
   <body onContextMenu="return false;">
-    <h1> Automaton Simulator</h1>
+<h1> Automaton Simulator</h1>
+    <hr>
+    <div id="test"></div>
     <hr>
     <div class="cp_navi">
     <ul>
@@ -56,11 +59,11 @@
 	</div>
       </li>
       </li>
-<!--      <li><a href="#test" onClick="button_test()">Test</a></li> -->
+      <li><a href="#test" onClick="button_test()">Test</a></li>
     </ul>
     </div>
     <hr>
- <div class="cp_tools">
+    <div class="cp_tools">
   <ul>
     <li>
       <div id="tools">
@@ -95,6 +98,12 @@
     </li>
   </ul>
 </div>
+ <canvas id="maincanvas" width=800 height=600>
+</canvas>
+<div id="tape">
+<canvas id="tapecanvas" width=800 height=50>
+</canvas>
+</div>
  <div class="popup" id="statepopup">
   <ul>
    <li onClick="popup(0)">Initial State</li>
@@ -123,14 +132,7 @@
    <li onClick="popup('Delete')">Delete</li>
   </ul>
  </div>
- <canvas id="maincanvas" width=800 height=400>
-</canvas>
-<div id="tape">
-<canvas id="tapecanvas" width=800 height=100>
-</canvas>
-</div>
-    <script type="text/javascript" src="js/main.js"></script>
-<div id="testfile">
+<p id="testfile">
 My first automaton
 aabac
 abaCa
@@ -208,7 +210,8 @@ baabAAAbabbbbbaaabbbA
 
 Exercise 12: 2A=B
 ababbBbbbaaB
-</div>
+</p>
+    <script type="text/javascript" src="js/main.js"></script>
 </body>
 </html>
   

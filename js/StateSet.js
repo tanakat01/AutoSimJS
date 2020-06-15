@@ -80,6 +80,12 @@ class StateSet {
         }
         return [ret, traversed];
     }
+    hasFinal() {
+        for (let s of this.states) {
+            if (s.is_final) return true;
+        }
+        return false;
+    }
     /*
       public Iterator<State> iterator() {
       return states.iterator();

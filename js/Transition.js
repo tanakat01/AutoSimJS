@@ -569,6 +569,7 @@ class Transition extends AutomatonComponent {
         let rect = canvas.jscanvas.getBoundingClientRect();
         let x = clientX + rect.left;
         let y = clientY + rect.top;
+        y -= 150;
         let ts = new ToolTransition(canvas);
         ts.current = this;    
         canvas.setTool(ts);
@@ -577,12 +578,12 @@ class Transition extends AutomatonComponent {
         let popup = document.getElementById('transition_popup');
         ts.popup = popup;
         //console.log(popup + ",x" + x +",y" + y);
-        //popup.style.position="relative";
+        popup.style.left=x + "px";
+        popup.style.top=y + "px";
+        popup.style.position="fixed";
         popup.style.visibility="visible";
         popup.style.opacity="1";
         popup.style.display="block";
-        popup.style.left=x + "px";
-        popup.style.top=y + "px";
     }
 
     print(fout) {

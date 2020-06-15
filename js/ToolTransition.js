@@ -145,6 +145,10 @@ class ToolTransition extends Tool {
                 }
             }
         }
+        if (this.popup != null) {
+            this.popup.style.visibility="hidden";
+            this.popup.style.display="none";
+        }
     }
     select(g) {
         super.select(g);
@@ -155,6 +159,7 @@ class ToolTransition extends Tool {
         super.deselect(g);
         if (this.popup != null) {
             this.popup.style.visibility="hidden";
+            this.popup.style.display="none";
         }
         let b = document.getElementById('transition_button');
         b.style.border="none";

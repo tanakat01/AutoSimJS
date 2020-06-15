@@ -48,4 +48,29 @@ class DFA extends Automaton{
         }
         return new DFATransition(this, src, dst);
     }
+    testOne(test) {
+        let str = '';
+        let stateSet = this.getInitialStates();
+        if(stateSet.size() == 0) {
+            return [false, '●失敗● <初期状態がありません>'];
+        }
+
+        let exTerm, isTerm;
+        for (let i = 0; i < test.length; i++) {
+            let c = test.charAt(i);
+            let lower_c = c.toLowerCase();
+            str += lower_c;
+            exTerm = (c != lower_c);
+            let data = stateSet.advance(lower_c);
+            stateSet = data[0];
+            if (stateSet.size() == 0) {
+                return [false, "●失敗● <文字列:'" + str + "', 期待:" + (exTerm ? "非終了状態" : "終了状態") + ", 結果:遷移がありません>"];
+            }
+            isTerm = stateSet.hasFinal();
+            if (exTerm != isTerm) {
+                return [false, "●失敗● <文字列:'" + str + "', 期待:" + (exTerm ? "終了状態" : "非終了状態") + ", 結果:" + (isTerm ? "終了状態" : "非終了状態") + ">"];
+            }
+        }
+        return [true, "成功 <文字列:'" + str + "', 期待:" + (exTerm ? "終了状態" : "非終了状態") + ", 結果:" + (isTerm ? "終了状態" : "非終了状態") + ">"];
+    }
 }

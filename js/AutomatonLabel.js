@@ -126,7 +126,7 @@ class AutomatonLabel extends AutomatonComponent {
         canvas.setTool(ts);
         let popup = document.getElementById('text_popup');
         ts.popup = popup;
-        //popup.style.position="relative";
+        popup.style.position="fixed";
         popup.style.visibility="visible";
         popup.style.opacity="1";
         popup.style.display="block";

@@ -157,22 +157,27 @@ class State  extends AutomatonComponent{
     showMenu(clientX, clientY) {
         let canvas = this.getAutomaton().getCanvas();
         let rect = canvas.jscanvas.getBoundingClientRect();
+        let statepopup = document.getElementById('statepopup');
+//        let rect1 = statepopup.getBoundingClientRect();
+//        console.log([rect.left, rect.top, clientX, clientY, rect1.left, rect1.top]);
         let x = clientX + rect.left;
         let y = clientY + rect.top;
+        y -= 50;
+        //        let x = clientX;
+//        let y = clientY;
         let ts = new ToolState(canvas);
         ts.current = this;    
         canvas.setTool(ts);
         //console.log('State:showMenu, canvas=' + canvas);
         //console.log('canvas.cur_tool=' + canvas.cur_tool);
-        let statepopup = document.getElementById('statepopup');
         ts.popup = statepopup;
         //console.log(statepopup + ",x" + x +",y" + y);
-        //    statepopup.style.position="relative";
+        statepopup.style.left=x + "px";
+        statepopup.style.top=y + "px";
+        statepopup.style.position="fixed";
         statepopup.style.visibility="visible";
         statepopup.style.opacity="1";
         statepopup.style.display="block";
-        statepopup.style.left=x + "px";
-        statepopup.style.top=y + "px";
     }
     
 

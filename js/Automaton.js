@@ -508,4 +508,7 @@ class Automaton {
     /*
 
      */
+    testOne(test) {
+        return [false, "Not supported for this type of machines"];
+    }
 }

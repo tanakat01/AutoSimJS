@@ -27,21 +27,7 @@ function hide_tmtools() {
 }
 
 
-function new_machine(t) {
-    if (!window.confirm("Are you sure you want to clear everything for a new project?")) { return; }
-    if (automaton_type == t) {
-        return;
-    }
-    if (t != "tm") {
-        hide_tmtools();
-    }
-    else {
-        show_tmtools();
-    }
-    automaton_type = t;
-    alert('setting to ' + t);
-}
-
+/*
 function dfa() {
     if (!window.confirm("Are you sure you want to clear everything for a new project?")) { return; }
     if (automaton_type != "dfa") {
@@ -74,6 +60,7 @@ function tm() {
         alert('setting to tm');
     }
 }
+*/
 function button_quit() {
     window.close();
 }
@@ -87,6 +74,7 @@ let tapecanvas = document.getElementById('tapecanvas');
 let tape = new Tape(tapecanvas);
 tape.reset();
 canvas.setTape(tape);
+let test = new Test(canvas);
 
 function onState() {
 //    console.log('onState');
@@ -191,7 +179,40 @@ function button_print() {
         printWin.close();            
     }, true);
 }
+
 function button_test() {
-    a = window.open("","dialogue","menubar=no,location=no,resizable=no,scrollbars=no,status=yes,width=300,height=200");
-//    console.log(a.ducument);
+//    a = window.open("","dialogue","menubar=no,location=no,resizable=no,scrollbars=no,status=yes,width=300,height=200");
+/*
+    let d = document.getElementById('test');
+    let h1Node = document.createElement('h1');
+    let textNode = document.createTextNode('Test');
+    h1Node.appendChild(textNode);
+    d.appendChild(h1Node);
+*/
+    test.show();
+}
+
+function new_machine(t) {
+    if (!window.confirm("Are you sure you want to clear everything for a new project?")) { return; }
+    if (t != "tm") {
+        hide_tmtools();
+    }
+    else {
+        show_tmtools();
+    }
+    automaton_type = t;
+    let automaton = null;
+    if (t == "dfa") {
+        automaton = new DFA();
+    } else if (t == "nfa") {
+        automaton = new NFA();
+    } else if (t == "pda") {
+        automaton = new DPDA();
+    } else if (t == "tm") {
+        automaton = new TuringMachine();
+    }
+    if (automaton != null) {
+        canvas.setAutomaton(automaton);
+    }
+//    console.log('setting to ' + t + ',automaton=' + automaton);
 }
