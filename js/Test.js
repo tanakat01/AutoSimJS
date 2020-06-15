@@ -18,15 +18,28 @@ class Test {
         //console.log(this.testcases);
     }
     show() {
+        this.parent = document.createElement('div');
+	let w = window.open("","dialogue","menubar=no,location=no,resizable=no,scrollbars=no,status=yes,width=500,height=500");
+	w.focus();
+        let body = document.createElement('body');
+	w.document.body = body;
+	body.appendChild(this.parent);
+        this.menu = this.createMenu();
+//            console.log('this.parent=' + this.parent);
+        for (let o of this.menu) {
+            this.parent.appendChild(o);
+        }
+        this.parent.style.visibility = 'visible';
+        this.parent.style.display = 'block';
+    }
+    showOriginal() {
         if (this.parent == null) {
             this.parent = document.getElementById('test');
         }
-        if (this.menu == null) {
-            this.menu = this.createMenu();
+        this.menu = this.createMenu();
 //            console.log('this.parent=' + this.parent);
-            for (let o of this.menu) {
-                this.parent.appendChild(o);
-            }
+        for (let o of this.menu) {
+            this.parent.appendChild(o);
         }
         this.parent.style.visibility = 'visible';
         this.parent.style.display = 'block';
@@ -48,6 +61,7 @@ class Test {
             let option = document.createElement('option');
             this.options.push(option);
             option.value = i;
+	    console.log('testcases[' + i + ']=' + this.testcases[i].result);
             if (this.testcases[i].result == null) {
                 option.style.background = '#ffffff';
             } else if (this.testcases[i].result) {
@@ -87,9 +101,11 @@ class Test {
         if (OK) {
             this.resultArea.style.background = "#80ff80";
             this.options[i].style.background = "#80ff80";
+	    this.testcases[i].result = true;
         } else {
             this.resultArea.style.background = "#ff8080";
             if (this.testcases[i].result == null) {
+		this.testcases[i].result = false;
                 this.options[i].style.background = "#ff8080";
             }
         }
@@ -108,7 +124,7 @@ class Test {
     createResultArea() {
         let tf = document.createElement('textarea');
         tf.readonly = true;
-        tf.cols = 80;
+        tf.cols = 50;
         tf.rows = 10;
         this.resultArea = tf;
         return tf;
@@ -128,8 +144,10 @@ class Test {
         tr.appendChild(td1);
         let td2 = document.createElement('td');
         td2.appendChild(this.createTest());
+/*
         td2.appendChild(document.createElement('br'));
         td2.appendChild(this.createClose());
+*/
         tr.appendChild(td2);
         table.appendChild(tr);
         r.push(table)

@@ -52,7 +52,8 @@ class DFA extends Automaton{
         let str = '';
         let stateSet = this.getInitialStates();
         if(stateSet.size() == 0) {
-            return [false, '●失敗● <初期状態がありません>'];
+          return [false, '**FAILURE** <No Initial State>'];
+	  //return [false, '\u3042\u3044\u3046\u3048\u30fc'];
         }
 
         let exTerm, isTerm;
@@ -64,13 +65,13 @@ class DFA extends Automaton{
             let data = stateSet.advance(lower_c);
             stateSet = data[0];
             if (stateSet.size() == 0) {
-                return [false, "●失敗● <文字列:'" + str + "', 期待:" + (exTerm ? "非終了状態" : "終了状態") + ", 結果:遷移がありません>"];
+                return [false, "**FAILURE** <String:'" + str + "', Expected:" + (exTerm ? "terminal" : "non-terminal") + ", Result:No transition>"];
             }
             isTerm = stateSet.hasFinal();
             if (exTerm != isTerm) {
-                return [false, "●失敗● <文字列:'" + str + "', 期待:" + (exTerm ? "終了状態" : "非終了状態") + ", 結果:" + (isTerm ? "終了状態" : "非終了状態") + ">"];
+                return [false, "**FAILURE** <String:'" + str + "', Expected:" + (exTerm ? "terminal" : "non-terminal") + ", Result:" + (isTerm ? "terminal" : "non-terminal") + ">"];
             }
         }
-        return [true, "成功 <文字列:'" + str + "', 期待:" + (exTerm ? "終了状態" : "非終了状態") + ", 結果:" + (isTerm ? "終了状態" : "非終了状態") + ">"];
+        return [true, "SUCCESS <String:'" + str + "', Expected:" + (exTerm ? "terminal" : "non-terminal") + ", Result:" + (isTerm ? "terminal" : "non-terminal") + ">"];
     }
 }
