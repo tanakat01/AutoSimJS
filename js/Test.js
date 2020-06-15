@@ -61,7 +61,7 @@ class Test {
             let option = document.createElement('option');
             this.options.push(option);
             option.value = i;
-	    console.log('testcases[' + i + ']=' + this.testcases[i].result);
+	    //console.log('testcases[' + i + ']=' + this.testcases[i].result);
             if (this.testcases[i].result == null) {
                 option.style.background = '#ffffff';
             } else if (this.testcases[i].result) {
