@@ -9,7 +9,9 @@ class Tool {
     constructor(canvas) {
         this.canvas = canvas;
         this.cursor = Cursor.getDefaultCursor();
+/*
         this.popup = null;
+*/
     }
     
     getCanvas() {
@@ -34,5 +36,7 @@ class Tool {
     mousePressed(g, e) { }
     mouseReleased(g, e) { }
     mouseDragged(g, e) { }
+/*
     do_popup(n) {}
+*/
 }

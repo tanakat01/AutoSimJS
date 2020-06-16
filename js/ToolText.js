@@ -27,9 +27,11 @@ class ToolText extends Tool {
         if(this.current != null) {
             this.current = null;
         }
+/*
         if (this.popup != null) {
             this.popup.style.visibility="hidden";
         }
+*/
         let b = document.getElementById('text_button');
         b.style.border="none";
     }
@@ -80,7 +82,7 @@ class ToolText extends Tool {
         super.draw(g);
         if(this.current != null) this.current.drawCursor(g);
     }
-    
+/*    
     do_popup(n) {
         if (this.current != null) {
             if (n == "Delete") {
@@ -88,4 +90,5 @@ class ToolText extends Tool {
             }
         }
     }
+*/
 }

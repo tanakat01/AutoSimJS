@@ -132,6 +132,7 @@ class ToolTransition extends Tool {
         this.to_expose.grow(3, 3);
     }
 
+/*
     do_popup(c) {
         if (this.current != null) {
             if (c == "Delete") {
@@ -150,6 +151,7 @@ class ToolTransition extends Tool {
             this.popup.style.display="none";
         }
     }
+*/
     select(g) {
         super.select(g);
         let b = document.getElementById('transition_button');
@@ -157,10 +159,12 @@ class ToolTransition extends Tool {
     }
     deselect(g) {
         super.deselect(g);
+/*
         if (this.popup != null) {
             this.popup.style.visibility="hidden";
             this.popup.style.display="none";
         }
+*/
         let b = document.getElementById('transition_button');
         b.style.border="none";
     }

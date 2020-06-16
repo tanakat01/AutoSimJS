@@ -155,6 +155,67 @@ class State  extends AutomatonComponent{
         }
     }
     showMenu(clientX, clientY) {
+        let state = this;
+        let automaton = this.getAutomaton();
+        let canvas = automaton.getCanvas();
+        let parent = document.getElementById('popups');
+        let select = document.createElement('select');
+        select.size = 3;
+        select.multiple = true;
+        select.style.overflow = 'hidden';
+        //
+        let option_initial = document.createElement('option');
+        let select_str = this.isInitial() ? '✓' : '　';
+        option_initial.text = select_str + 'Initial State';
+/*        option_initial.selected = this.isInitial();
+*/
+        option_initial.disabled = (!this.isInitial() && !this.canBeInitial());
+        option_initial.onclick = function() {
+            if (state.isInitial()) {
+                state.setInitial(false);
+            } else if (automaton.getInitialStates().size() == 0) {
+                state.setInitial(true);
+            }
+            canvas.hide_popup();
+        };
+        select.appendChild(option_initial);
+        // 
+        let option_final = document.createElement('option');
+        select_str = this.isFinal() ? '✓' : '　';
+        option_final.text = select_str + 'Final State';
+/*
+        option_final.selected = this.isFinal();
+*/
+        option_final.onclick = function() {
+            state.setFinal(!state.isFinal());
+            canvas.hide_popup();
+        };
+        select.appendChild(option_final);
+        // 
+        let option_delete = document.createElement('option');
+        option_delete.text = '　' + 'Delete';
+        option_delete.onclick = function() {
+            automaton.remove(state);
+            canvas.hide_popup();
+        };
+        select.appendChild(option_delete);
+        // 
+        let rect = canvas.jscanvas.getBoundingClientRect();
+        let x = clientX + rect.left;
+        let y = clientY + rect.top;
+        select.style.left = x + "px";
+        select.style.top = y + "px";
+        select.style.position="fixed";
+        select.style.visibility = "visible";
+        select.style.display = "block";
+        if (canvas.select != null) {
+            parent.removeChild(canvas.select);
+        }
+        canvas.select = select;
+        parent.appendChild(select);
+    }
+/*
+    showMenuOld(clientX, clientY) {
         let canvas = this.getAutomaton().getCanvas();
         let rect = canvas.jscanvas.getBoundingClientRect();
         let statepopup = document.getElementById('statepopup');
@@ -179,7 +240,7 @@ class State  extends AutomatonComponent{
         statepopup.style.opacity="1";
         statepopup.style.display="block";
     }
-    
+*/    
 
     print(fout) {
         super.print(fout);

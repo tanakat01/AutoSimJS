@@ -16,6 +16,7 @@ class Canvas{
         this.cur_tool = null;
         this.mouseDown = false;
         this.automaton = null;
+        this.select = null;
         this.dirty = false;
         this.suppress_repaint = false;
         this.jscanvas = jscanvas;
@@ -98,6 +99,8 @@ class Canvas{
     }
     setTool(what) {
         //    console.log('setTool' + what);
+        this.hide_popup();
+
         if(what == null) return;
         if(this.cur_tool != null) this.cur_tool.deselect(this.getGraphics());
         this.cur_tool = what;
@@ -215,23 +218,36 @@ class Canvas{
         if (this.cur_tool != null) {
             //      console.log('this.cur_tool=' + this.cur_tool.constructor.name);
             this.cur_tool.do_popup(n);
+/*
             let statepopup = this.cur_tool.popup;
             statepopup.style.visibility="hidden";
             this.cur_tool.current=null;
             this.cur_tool.popup=null;
+*/
             this.repaint();
         }
     }
     has_popup() {
-        return this.cur_tool != null && this.cur_tool.popup != null;
+//        return this.select != null || (this.cur_tool != null && this.cur_tool.popup != null);
+        return this.select != null;
     }
     hide_popup() {
+        let changed = false;
+        if (this.select != null) {
+            let parent = document.getElementById('popups');
+            parent.removeChild(this.select);
+            this.select = null;
+            changed = true;
+        }
+/*
         if (this.cur_tool != null && this.cur_tool.popup != null) {
             this.cur_tool.popup.style.visibility="hidden";
             this.cur_tool.popup=null;
             this.cur_tool.current=null;
-            this.repaint();
+            changed = true;
         }
+*/
+        if (changed) this.repaint();
     }
     
     /*

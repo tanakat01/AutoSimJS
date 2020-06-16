@@ -565,6 +565,57 @@ class Transition extends AutomatonComponent {
         }
     }
     showMenu(clientX, clientY) {
+        let transition = this;
+        let automaton = this.getAutomaton();
+        let canvas = automaton.getCanvas();
+        let parent = document.getElementById('popups');
+        let select = document.createElement('select');
+        let alphabet = automaton.getAlphabet().toString();
+//        console.log(['automaton', automaton, 'alphabet', alphabet]);
+        select.size = alphabet.length + 1;
+        select.multiple = true;
+        select.style.overflow = 'hidden';
+        //
+        for (let c of alphabet) {
+            let option = document.createElement('option');
+            let select_str = this.transitsOn(c) ? '✓' : '　';
+            option.text = select_str + Alphabet.toString(c);
+            option.disabled = (!this.transitsOn(c) && !this.canBeTransit(c));
+            option.onclick = function() {
+                if (!transition.transitsOn(c)) {
+                    transition.addTransit(c);
+                } else {
+                    transition.removeTransit(c);
+                }
+                canvas.hide_popup();
+            };
+            select.appendChild(option);
+        }
+        // 
+        let option_delete = document.createElement('option');
+        option_delete.text = '　' + 'Delete';
+        option_delete.onclick = function() {
+            automaton.remove(transition);
+            canvas.hide_popup();
+        };
+        select.appendChild(option_delete);
+        // 
+        let rect = canvas.jscanvas.getBoundingClientRect();
+        let x = clientX + rect.left;
+        let y = clientY + rect.top;
+        select.style.left = x + "px";
+        select.style.top = y + "px";
+        select.style.position="fixed";
+        select.style.visibility = "visible";
+        select.style.display = "block";
+        if (canvas.select != null) {
+            parent.removeChild(canvas.select);
+        }
+        canvas.select = select;
+        parent.appendChild(select);
+    }
+/*
+    showMenuOrig(clientX, clientY) {
         let canvas = this.getAutomaton().getCanvas();
         let rect = canvas.jscanvas.getBoundingClientRect();
         let x = clientX + rect.left;
@@ -585,7 +636,7 @@ class Transition extends AutomatonComponent {
         popup.style.opacity="1";
         popup.style.display="block";
     }
-
+*/
     print(fout) {
         super.print(fout);
         fout.print("transits "); fout.printlnGroup(this.transits);

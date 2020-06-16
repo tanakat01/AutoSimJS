@@ -117,6 +117,38 @@ class AutomatonLabel extends AutomatonComponent {
         }
     }
     showMenu(clientX, clientY) {
+        let label = this;
+        let automaton = this.getAutomaton();
+        let canvas = automaton.getCanvas();
+        let parent = document.getElementById('popups');
+        let select = document.createElement('select');
+        let alphabet = automaton.getAlphabet().toString();
+        select.size = 2;
+//        select.style.overflow = 'hidden';
+        let option_delete = document.createElement('option');
+        option_delete.text = '　' + 'Delete';
+        option_delete.onclick = function() {
+            automaton.remove(label);
+            canvas.hide_popup();
+        };
+        select.appendChild(option_delete);
+        // 
+        let rect = canvas.jscanvas.getBoundingClientRect();
+        let x = clientX + rect.left;
+        let y = clientY + rect.top;
+        select.style.left = x + "px";
+        select.style.top = y + "px";
+        select.style.position="fixed";
+        select.style.visibility = "visible";
+        select.style.display = "block";
+        if (canvas.select != null) {
+            parent.removeChild(canvas.select);
+        }
+        canvas.select = select;
+        parent.appendChild(select);
+    }
+/*
+    showMenuOrig(clientX, clientY) {
         let canvas = this.getAutomaton().getCanvas();
         let rect = canvas.jscanvas.getBoundingClientRect();
         let x = clientX + rect.left;
@@ -133,5 +165,5 @@ class AutomatonLabel extends AutomatonComponent {
         popup.style.left=x + "px";
         popup.style.top=y + "px";
     }
-    
+*/    
 }

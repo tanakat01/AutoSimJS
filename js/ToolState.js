@@ -56,6 +56,7 @@ class ToolState extends Tool {
         }
         this.mouseDragged(g, e);
     }
+/*
     // 
     do_popup(n) {
         if (this.current != null) {
@@ -75,6 +76,7 @@ class ToolState extends Tool {
             }
         }
     }
+*/
     select(g) {
         super.select(g);
         let b = document.getElementById('state_button');
@@ -82,9 +84,11 @@ class ToolState extends Tool {
     }
     deselect(g) {
         super.deselect(g);
+/*
         if (this.popup != null) {
             this.popup.style.visibility="hidden";
         }
+*/
         let b = document.getElementById('state_button');
         b.style.border="none";
     }

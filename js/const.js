@@ -5,7 +5,7 @@ const Main_FILE_VERSION_NAME = "v1.0";
 const Alphabet_EPSILON = 'ε';
 const Alphabet_ELSE = '*';
 const Alphabet_BLANK = '_';
-const Alphabet_alphabet = "abcdefghijklmnopqrstuvwxyz";
+const Alphabet_alphabet = "abcdefghij";
 // Automaton
 const Automaton_NUM_FRAMES = 15;
 // Canvas
