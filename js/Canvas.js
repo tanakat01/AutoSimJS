@@ -118,7 +118,8 @@ class Canvas{
     }
 
     setAutomaton(automaton) {
-        automaton.setCanvas(null);
+	this.hide_popup();
+	automaton.setCanvas(null);
         this.automaton = automaton;
         automaton.setCanvas(this);
         if(this.tape != null && this.toolbox != null && automaton != null) {
