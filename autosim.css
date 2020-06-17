@@ -232,6 +232,11 @@ body {
     overflow-x: hidden;
 }
 
+#main {
+    overflow-x: auto;
+    overflow-y: scroll;
+    height: 400px;
+}
 #tape {
     overflow-x: auto;
 }

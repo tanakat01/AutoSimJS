@@ -82,16 +82,16 @@
     <li>
       <div id="tmtools">
         <ul>
-          <li><button type=button onclick="alert('button要素は、この使用例のようにスクリプトと組み合わせて利用されることが多いようです。')">
+          <li><button type=button onclick="alert('pause')">
               <img src="img/pause.png" class="ic">
           </button></li>
-          <li><button type=button onclick="alert('button要素は、この使用例のようにスクリプトと組み合わせて利用されることが多いようです。')">
+          <li><button type=button onclick="alert('forward')">
               <img src="img/forward.png" class="ic">
           </button></li>
-          <li><button type=button onclick="alert('button要素は、この使用例のようにスクリプトと組み合わせて利用されることが多いようです。')">
+          <li><button type=button onclick="alert('backward')">
               <img src="img/backward.png" class="ic">
           </button></li>
-      <li><button type=button onclick="alert('button要素は、この使用例のようにスクリプトと組み合わせて利用されることが多いようです。')">
+      <li><button type=button onclick="alert('restart')">
           <img src="img/restart.png" class="ic">
       </button></li>
         </ul>
@@ -100,8 +100,9 @@
   </ul>
 </div>
 <div id="popups"></div>
- <canvas id="maincanvas" width=800 height=400>
-</canvas>
+<div id="main"> <canvas id="maincanvas" width=800 height=400>
+  </canvas>
+  </div>
 <div id="tape">
 <canvas id="tapecanvas" width=800 height=50>
 </canvas>

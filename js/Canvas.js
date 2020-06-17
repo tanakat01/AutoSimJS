@@ -204,6 +204,16 @@ class Canvas{
     revalidate() {
     }
     setPreferredSize(dim) {
+        let changed = false;
+        if (dim.width > this.getWidth()) {
+            this.jscanvas.width = dim.width;
+            changed = true;
+        }
+        if (dim.height > this.getHeight()) {
+            this.jscanvas.height = dim.height;
+            changed = true;
+        }
+        this.repaint();
     }
     //
     dimAdd(x, y) {

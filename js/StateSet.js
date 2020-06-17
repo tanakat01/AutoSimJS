@@ -72,7 +72,7 @@ class StateSet {
                         ret.add(transition.getDest());
                         changed = true;
                     }
-                    if(!traversed.contains(transition)) {
+                    if(!traversed.includes(transition)) {
                         traversed.push(transition);
                     }
                 }
