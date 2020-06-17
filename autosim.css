@@ -138,7 +138,7 @@ img.ic {
 }
 
 .filedropdown-content a {
-    color: black;
+    color: #424242;
     padding: 4px 8px;
     text-decoration: none;
     display: block;
@@ -146,7 +146,8 @@ img.ic {
 
 /* Change color of dropdown links on hover */
 .filedropdown-content a:hover {
-    color: #424242;
+    color: black;
+    font-weight: bold;
     text-decoration: underline;
 }
 
