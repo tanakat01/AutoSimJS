@@ -114,19 +114,9 @@ class Label {
         g.drawLine(x_pos, y_pos, x_pos, y_pos + g.getFontMetrics().getAscent());
     }
 
-    addLetter(what) {
-        if(what == 0x08 || what == 0x7F || what == "Backspace" || what=="Delete" || what == "Clear") {
-            if(this.text.length <= 0) return false;
-            this.text = this.text.substring(0, this.text.length - 1);
-            return true;
-        } else if(!Character.isISOControl(what)) {
-            this.text += what;
-            return true;
-        } else {
-            return false;
-        }
+    drawText(text) {
+        this.text = text;
     }
-
     /*
       private class FontSelectMenuItem extends JMenuItem
       implements ActionListener {

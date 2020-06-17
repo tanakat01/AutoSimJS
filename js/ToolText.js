@@ -15,6 +15,12 @@ class ToolText extends Tool {
         this.halign = GraphicsUtil_H_LEFT;
         this.valign = GraphicsUtil_V_BASELINE;
         this.setCursor(Cursor.getPredefinedCursor(Cursor_TEXT_CURSOR));
+        let textForm = document.getElementById('textform');
+        textForm.toolText = this;
+        this.inputText = textForm.value;
+        textForm.onkeyup = function() {
+            this.toolText.inputText = this.value;
+        }
     }
 
     select(g) {
@@ -48,7 +54,6 @@ class ToolText extends Tool {
         if(this.current != null) {
             this.current = null;
         }
-
         // if nothing found, create a new label
         if(this.current == null) {
             let item = new AutomatonLabel(this.getCanvas().getAutomaton());
@@ -58,31 +63,28 @@ class ToolText extends Tool {
             this.getCanvas().getAutomaton().addComponent(item);
         }
         if(this.current != null) {
-            this.current.exposeCursor(this.getCanvas(), g);
-            this.getCanvas().expose(this.current.getBounds(g));
+            this.addText(g);
         }
         this.getCanvas().commitTransaction(false);
-    }
-    keyTyped(g, c) {
-        if (c == "Shift" || c == "Control" || c == "Meta" || c == "Alt") return;
-        if(this.current != null) {
-            let prev = this.current.getBounds(g);
-            this.current.exposeCursor(this.getCanvas(), g);
-            let changed = this.current.addLetter(c);
-            if(changed) {
-                this.getCanvas().expose(prev);
-                this.getCanvas().expose(this.current.getBounds(g));
-                this.current.exposeCursor(this.getCanvas(), g);
-                this.getCanvas().commitTransaction(false);
-            }
-        }
     }
 
     draw(g) {
         super.draw(g);
         if(this.current != null) this.current.drawCursor(g);
     }
-/*    
+
+    addText(g) {
+        if (this.current == null) return;
+        let text = this.inputText;
+        let prev = this.current.getBounds(g);
+        this.current.exposeCursor(this.getCanvas(), g);
+        this.current.drawText(text);
+        this.getCanvas().expose(prev);
+        this.getCanvas().expose(this.current.getBounds(g));
+        this.current.exposeCursor(this.getCanvas(), g);
+        this.getCanvas().commitTransaction(false);
+    }
+/*
     do_popup(n) {
         if (this.current != null) {
             if (n == "Delete") {
