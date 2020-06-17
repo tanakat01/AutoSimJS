@@ -36,26 +36,21 @@
     <div class="cp_navi">
     <ul>
       <li>
-        <a>File <span class="caret"></span></a>
+        <a> File </a>
 	<div>
 	  <ul>
-	    <li><span>New      &#9658;<span class="caret1"></span></span>
-              <div>
-                <ul>
-                  <li><a href="#dfa" onClick="new_machine('dfa')">Deterministic Finite Automaton</a></li>
-                  <li><a href="#nfa" onClick="new_machine('nfa')">Nondeterministic Finite Automaton</a></li>
-<!--
-                  <li><a href="#pda" onClick="new_machine('pda')">Deterministic Push-Down Automaton</a></li>
-                  <li><a href="#tm" onClick="new_machine('tm')">Turing Machine</a></li>
--->
-                </ul>
+            <li class="filedropdown">
+              <span class="filemenu"> New &#9658 </span>
+              <div class="filedropdown-content">
+                <a href="#dfa" onClick="new_machine('dfa')"> Deterministic Finite Automaton </a>
+                <a href="#nfa" onClick="new_machine('nfa')">Nondeterministic Finite Automaton</a>
+                <!-- <a href="#pda" onClick="new_machine('pda')">Deterministic Push-Down Automaton</a> -->
+                <!-- <a href="#tm" onClick="new_machine('tm')">Turing Machine</a> -->
               </div>
             </li>
-	    <li><span onClick="button_open()">Open<span></li>
-	    <li><span onclick="button_save()">Save</span></li>
-            <li><span onClick="button_print()">Print</span></li>
-<!--	    <li><a href="#print" onClick="button_print()">Print</a></li>
-	    <li><a href="#quit" onClick="window.close()">Quit</a></li> -->
+            <li><span onClick="button_open()"> Open <span></li>
+	    <li><span onclick="button_save()"> Save </span></li>
+            <li><span onClick="button_print()"> Print </span></li>
 	  </ul>
 	</div>
       </li>

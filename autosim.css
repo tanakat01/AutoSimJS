@@ -1,4 +1,13 @@
 /* https://copypet.jp/671/ */
+
+body {
+    font-family: "Helvetica Neue", "Lucida Grande", "Lucida Sans Unicode", Helvetica, Arial, sans-serif !important;
+    color: #333;
+
+    max-width: 64em;
+    margin: auto;
+    padding: 5%;
+}
 canvas {
     border-style : solid;
     border-color : black;
@@ -15,11 +24,6 @@ img.ic {
 
 .cp_navi {
 	background-color: #ffffff;
-/*
-	border: 1px solid #dedede;
-	border-radius: 4px;
-	box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.055);
-*/
         border: 0pt;
 	color: black;
 	display: block;
@@ -27,30 +31,18 @@ img.ic {
 	overflow: hidden;
 	width: 100%;
 }
+
 .cp_navi ul {
 	margin: 0;
 	padding: 0;
 }
 .cp_navi ul > li {
-	display: inline-block;
+        display: inline-block;
 	list-style-type: none;
 	-webkit-transition: all 0.2s;
 	        transition: all 0.2s;
 }
-/*
-.cp_navi > ul > li > a > .caret {
-	border-top: 4px solid #aaaaaa;
-	border-right: 4px solid transparent;
-	border-left: 4px solid transparent;
-	content: '';
-	display: inline-block;
-	height: 0;
-	width: 0;
-	vertical-align: middle;
-	-webkit-transition: color 0.1s linear;
-	        transition: color 0.1s linear;
-}
-*/
+
 .cp_navi > ul > li > a {
     color: black; /* #aaaaaa; */
 	display: block;
@@ -63,143 +55,106 @@ img.ic {
         font-weight:bold;
 	text-decoration: none;
 }
+
 .cp_navi > ul > li:hover {
-    /*	background-color: rgb(218, 60, 65); */
-    background-color: rgb(0, 0, 255);
+    background-color: #4169E1; /* royal blue */
 }
+
 .cp_navi > ul > li:hover > a {
-	color: rgb( 255, 255, 255 );
+    color: rgb( 255, 255, 255 );
 }
-/*
-.cp_navi > ul > li:hover > a > .caret {
-	border-top-color: rgb( 255, 255, 255 );
-}
-*/
+
 .cp_navi > ul > li > div {
     /*	background-color: rgb(218, 60, 65); */
     background-color: white;
-    
-	border-top: 0;
-	border-radius: 0 0 4px 4px;
-	box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.055);
-	display: none;
-	margin: 0;
-	opacity: 0;
-        position: absolute;
-/*        top: -20px;
-	width: 165px; */
-	visibility: hidden;
-	-webkit-transiton: opacity 0.2s;
-	       transition: opacity 0.2s;
+    border-top: 0;
+    border-radius: 0 0 4px 4px;
+    box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.055);
+    display: none;
+    margin: 0;
+    opacity: 0;
+    position: absolute;
+    visibility: hidden;
+    -webkit-transiton: opacity 0.2s;
+    transition: opacity 0.2s;
 }
+
 .cp_navi > ul > li:hover > div {
-	display: block;
-	opacity: 1;
-	visibility: visible;
+    display: block;
+    opacity: 1;
+    visibility: visible;
+    cursor: pointer;
 }
-.cp_navi > ul >li > div > ul {
+
+.cp_navi > ul > i > div > ul {
     border: solid 1px black;
-	margin: 0;
-	padding: 0 ;
+    margin: 0;
+    padding: 0 ;
 }
+
 .cp_navi > ul > li > div > ul > li {
-	display: block;
+    display: block;
     height: 30px;
+}
+
+.cp_navi > ul > li > div > ul > li:hover{
+    border: thick solid #4169E1; /* royal blue */;
 }
 
 .cp_navi > ul > li > div > ul > li > span {
-/*	color: #ffffff; */
     color: black;
-        font-weight:bold;
-	display: block;
-/*	padding: 12px 24px; */
-	padding: 5px 10px;
-	text-decoration: none;
-}
-.cp_navi > ul > li > div > ul > li:hover > span {
-	color: rgb( 255, 255, 255 );
-}
-
-.cp_navi > ul > li > div > ul > li > a {
-/*	color: #ffffff; */
-    color: black;
-        font-weight:bold;
-	display: block;
-/*	padding: 12px 24px; */
-	padding: 5px 10px;
-	text-decoration: none;
-}
-.cp_navi > ul > li > div > ul > li:hover{
-    background-color: rgb(0, 0, 255);
-    height: 30px;
-}
-
-.cp_navi > ul > li > div > ul > li:hover > a {
-	color: rgb( 255, 255, 255 );
-}
-
-.cp_navi > ul > li > div > ul > li > div {
-/*    background-color: white; 
-    
-    border-top: 0;
-	border-radius: 0 0 4px 4px;*/
-	box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.055);
-	display: none;
-	margin: 0;
-	opacity: 0;
-	/* position: absolute; */
-        position: relative;
-        left: 100px;
-        top: -30px;
-        /*	width: 165px; */
-	width: 300px; 
-	visibility: hidden;
-	-webkit-transiton: opacity 0.2s;
-	       transition: opacity 0.2s;
-}
-.cp_navi > ul > li > div > ul > li:hover > div {
-	display: block;
-	opacity: 1;
-	visibility: visible;
-}
-
-.cp_navi > ul > li > div > ul > li > div > ul{
-    border-style : solid;
-    border-color : black;
-    border-width : 1px;
-/*    position : relative;
-    left : 170px;
-    top : -20px;*/
-    width : 320px;
-/*	margin: -30px 0px;
-	padding: 0 165px;
-        width: 320px;
-*/
-}
-
-.cp_navi > ul > li > div > ul > li > div > ul > li {
-    display: block;
-    background-color: white;
-}
-.cp_navi > ul > li > div > ul > li > div > ul > li:hover {
-    background-color: rgb(0, 0, 255);
-}
-.cp_navi > ul > li > div > ul > li > div > ul > li > a {
-    color: black;
-    line-height: 30px;
-    padding: 0 0px;
     font-weight:bold;
+    display: block;
+    padding: 5px 10px;
     text-decoration: none;
 }
-.cp_navi > ul > li > div > ul > li > div > ul > li:hover > a {
-    background-color: rgb(0, 0, 255);
-    color: rgb( 255, 255, 255 );
+
+/* File menu. E.g., Open, Save. */
+/* TODO: it's the same as the above. We can reuse it? */
+.filemenu {
+   color: black;
+   font-weight: bold;
+   display: block;
+   padding: 5px 10px;
+   text-decoration: none;
+   -webkit-transiton: all 0.2s;
+   transition: all 0.2s;
 }
-/*
-.cp_navi > ul > lib > div > ul > li > div ul > li:hover > a {
-	background-color: rgba( 255, 255, 255, 0.1);
+
+.filedropdown {
+    position: relative;
+    display: inline-block;
 }
-*/
+
+/* File dropdown contents. Hidden by default */
+.filedropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 300px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    left: 40px;
+}
+
+.filedropdown-content a {
+    color: black;
+    padding: 4px 8px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+.filedropdown-content a:hover {
+    color: #424242;
+    text-decoration: underline;
+}
+
+/* Show the dropdown dropdown on hover */
+.filedropdown:hover .filedropdown-content {
+    display: block;
+}
+
 .cp_tools {
 	background-color: #ffffff;
 	border: 1px solid #dedede;
@@ -287,3 +242,4 @@ body {
     visibility: hidden;
     height:0;
 }
+
