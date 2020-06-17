@@ -17,10 +17,11 @@ class MyTapeListener {
         if(what == Alphabet_ELSE) return;
         if(what == ' ') return;
 
-        if(what == 'BackSpace') {
+        if(what == 'Backspace') {
             this.automaton.doBackStep();
             return;
         }
+        if(what.length > 1) return;
 
         // transition to new state
         //console.log('this.automaton=' + this.automaton);
@@ -77,7 +78,8 @@ class MySnapshot{
         this.automaton.setCurrent(this.current);
         let pos = this.automaton.canvas.getTape().getCursorPosition() - 1;
         this.automaton.canvas.getTape().setCursorPosition(pos);
-        this.automaton.canvas.getTape().setHeadPositionAnimate(pos).start();
+//        this.automaton.canvas.getTape().setHeadPositionAnimate(pos).start();
+        this.automaton.canvas.getTape().setHeadPosition(pos);
         this.automaton.canvas.getTape().write(pos, Alphabet_BLANK);
     }
 }
@@ -255,7 +257,7 @@ class Automaton {
     doStep() { }
     doBackStep() {
         if(this.history.length > 0) {
-            this.history.removeLast().restore();
+            this.history.pop().restore();
         }
     }
     doResetSimulation() { }

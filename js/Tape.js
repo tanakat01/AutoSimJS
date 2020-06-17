@@ -201,9 +201,9 @@ class Tape {
             tape.pressed_loc = Number.MIN_VALUE;
         }, false);
         this.canvas.setAttribute('tabindex', 0); // 
-        this.canvas.addEventListener("keypress", function(e) {
+        this.canvas.addEventListener("keydown", function(e) {
             let c = e.key;
-            //      console.log(c);
+            //console.log(c);
             let listeners = tape.listeners;
             for (var i = 0; i < listeners.length; i++) {
                 listeners[i].keyTyped(tape, c);
