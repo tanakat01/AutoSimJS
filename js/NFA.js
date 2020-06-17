@@ -41,24 +41,28 @@ class NFA extends Automaton{
         return new NFATransition(this, src, dst);
     }
     doPlay() {
+        //console.log('initials=' + this.getInitialStates().toString());
         super.doPlay();
-        let data = this.getCurrent().advance(Alphabet.EPSILON);
-        console.log(data);
-        this.setCurrent(data[0]);
+        let current = this.getCurrent();
+        //console.log('current=' + current.toString());
+        let data = current.advance(Alphabet_EPSILON);
+        // console.log(data[0].toString());
         let traversed = data[1];
 /*
+*/
+        let automaton = this;
+        let step = 0;
         let timer = setInterval(function() {
             step++;
             if (step >= 10) {
                 for (let t of traversed) {
                     t.setCursorExists(false);
-                    tape.setHeadPosition(pos + 1);
                 }
+                automaton.setCurrent(data[0]);
                 automaton.canvas.repaint();
                 clearInterval(timer);
                 return;
             }
-            tape.setHeadPosition(pos + step / 10);
             for (let t of traversed) {
                 t.setCursorExists(true);
                 t.setCursorProgress(step / 10);
@@ -66,7 +70,6 @@ class NFA extends Automaton{
             automaton.canvas.repaint();
 //            console.log('step=' + step);
         }, 50);
-*/
     }
     testOne(test) {
         let str = '';

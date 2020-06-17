@@ -126,7 +126,7 @@ class AutomatonLabel extends AutomatonComponent {
         select.size = 2;
 //        select.style.overflow = 'hidden';
         let option_delete = document.createElement('option');
-        option_delete.text = '　' + 'Delete';
+        option_delete.text = '\u{3000}' + 'Delete';
         option_delete.onclick = function() {
             automaton.remove(label);
             canvas.hide_popup();

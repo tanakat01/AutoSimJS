@@ -165,7 +165,7 @@ class State  extends AutomatonComponent{
         select.style.overflow = 'hidden';
         //
         let option_initial = document.createElement('option');
-        let select_str = this.isInitial() ? '✓' : '　';
+        let select_str = this.isIinitial() ? '\u{2713}' : '\u{3000}';
         option_initial.text = select_str + 'Initial State';
 /*        option_initial.selected = this.isInitial();
 */
@@ -181,7 +181,7 @@ class State  extends AutomatonComponent{
         select.appendChild(option_initial);
         // 
         let option_final = document.createElement('option');
-        select_str = this.isFinal() ? '✓' : '　';
+        select_str = this.isFinal() ? '\u{2713}' : '\u{3000}';
         option_final.text = select_str + 'Final State';
 /*
         option_final.selected = this.isFinal();
@@ -193,7 +193,7 @@ class State  extends AutomatonComponent{
         select.appendChild(option_final);
         // 
         let option_delete = document.createElement('option');
-        option_delete.text = '　' + 'Delete';
+        option_delete.text = '\u{3000}' + 'Delete';
         option_delete.onclick = function() {
             automaton.remove(state);
             canvas.hide_popup();

@@ -2,7 +2,8 @@
 const Main_VERSION_NAME = "1.2";
 const Main_FILE_VERSION_NAME = "v1.0";
 // Alphabet
-const Alphabet_EPSILON = 'ε';
+//const Alphabet_EPSILON = 'ε';
+const Alphabet_EPSILON = '\u{03b5}';
 const Alphabet_ELSE = '*';
 const Alphabet_BLANK = '_';
 const Alphabet_alphabet = "abcdefghij";

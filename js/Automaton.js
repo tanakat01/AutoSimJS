@@ -26,7 +26,6 @@ class MyTapeListener {
         //console.log('this.automaton=' + this.automaton);
         this.automaton.history.push(new MySnapshot(this.automaton));
         let data = this.automaton.getCurrent().advance(what);
-        let anim = this.automaton.setCurrent(data[0]);
         let traversed = data[1];
         //console.log('traversed.length = ' + traversed.length);
         //console.log('traversed[0] = ' + traversed[0]);
@@ -40,6 +39,7 @@ class MyTapeListener {
         tape.repaint();
         let step = 0;
         let automaton = this.automaton;
+        automaton.setCurrent(null);
         let timer = setInterval(function() {
             step++;
             if (step >= 10) {
@@ -47,6 +47,7 @@ class MyTapeListener {
                     t.setCursorExists(false);
                     tape.setHeadPosition(pos + 1);
                 }
+                automaton.setCurrent(data[0]);
                 automaton.canvas.repaint();
                 clearInterval(timer);
                 return;

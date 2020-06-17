@@ -578,7 +578,8 @@ class Transition extends AutomatonComponent {
         //
         for (let c of alphabet) {
             let option = document.createElement('option');
-            let select_str = this.transitsOn(c) ? '✓' : '　';
+//            let select_str = this.transitsOn(c) ? '✓' : '　';
+            let select_str = this.transitsOn(c) ? '\u{2713}' : '\u{3000}';
             option.text = select_str + Alphabet.toString(c);
             option.disabled = (!this.transitsOn(c) && !this.canBeTransit(c));
             option.onclick = function() {
@@ -593,7 +594,7 @@ class Transition extends AutomatonComponent {
         }
         // 
         let option_delete = document.createElement('option');
-        option_delete.text = '　' + 'Delete';
+        option_delete.text = '\u{3000}' + 'Delete';
         option_delete.onclick = function() {
             automaton.remove(transition);
             canvas.hide_popup();

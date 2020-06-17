@@ -86,6 +86,14 @@ class StateSet {
         }
         return false;
     }
+    toString() {
+        let r = '[';
+        for (let s of this.states) {
+            r += s.constructor.name + '(' + s.x + ',' + s.y + '),';
+        }
+        r += ']';
+        return r;
+    }
     /*
       public Iterator<State> iterator() {
       return states.iterator();
