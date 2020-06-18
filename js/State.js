@@ -165,7 +165,7 @@ class State  extends AutomatonComponent{
         select.style.overflow = 'hidden';
         //
         let option_initial = document.createElement('option');
-        let select_str = this.isIinitial() ? '\u{2713}' : '\u{3000}';
+        let select_str = this.isInitial() ? '\u{2713}' : '\u{3000}';
         option_initial.text = select_str + 'Initial State';
 /*        option_initial.selected = this.isInitial();
 */
