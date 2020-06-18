@@ -182,7 +182,7 @@ class Canvas{
     repaint() {
         let g = this.getGraphics();
         g.setColor(Color.white);
-        g.fillRect(0, 0, 800, 600);
+        g.fillRect(0, 0, this.jscanvas.width, this.jscanvas.height);
         this.paintComponent(g);
     }
     
