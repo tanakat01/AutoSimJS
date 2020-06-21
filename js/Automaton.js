@@ -375,7 +375,7 @@ class Automaton {
     }
     getBounds(g) {
         if(this.bounding == null) this.computeBoundingBox(g);
-        return {...this.bounding}; // copy of this.bounding
+        return Object.assign(this.bounding); // copy of this.bounding
     }
     invalidateBounds() { this.bounding = null; }
     computeBoundingBox(g) {
