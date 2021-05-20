@@ -180,6 +180,11 @@ function button_print() {
     }, true);
 }
 
+function button_save_image() {
+  //   console.log('dataUrl' + dataUrl);
+  const dataUrl = document.getElementById('maincanvas').toDataURL("image/png");
+  document.getElementById("save_image").href = dataUrl;
+}
 function button_test() {
 //    a = window.open("","dialogue","menubar=no,location=no,resizable=no,scrollbars=no,status=yes,width=300,height=200");
 /*
