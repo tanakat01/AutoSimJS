@@ -3,7 +3,7 @@
   <head>
     <title>Automaton Simulator</title>
     <link rel="icon" href="favicon.ico">
-    <link rel=stylesheet href="autosim.css">
+    <link rel="stylesheet" href="autosim.css">
     <script type="text/javascript" src="js/const.js"></script>
     <script type="text/javascript" src="js/GroupedWriter.js"></script>
     <script type="text/javascript" src="js/GroupedReader.js"></script>
@@ -40,7 +40,7 @@
 	<div>
 	  <ul>
             <li class="filedropdown">
-              <span class="filemenu"> New &#9658 </span>
+              <span class="filemenu"> New &#9658; </span>
               <div class="filedropdown-content">
                 <a href="#dfa" onClick="new_machine('dfa')"> Deterministic Finite Automaton </a>
                 <a href="#nfa" onClick="new_machine('nfa')">Nondeterministic Finite Automaton</a>
@@ -48,12 +48,12 @@
                 <a href="#tm" onClick="new_machine('tm')">Turing Machine</a>
               </div>
             </li>
-            <li><span onClick="button_open()"> Open <span></li>
+            <li><span onClick="button_open()"> Open </span></li>
 	    <li><span onclick="button_save()"> Save </span></li>
-            <li><span onClick="button_print()"> Print </span></li>
+<!--            <li><span onClick="button_print()"> Print </span></li> -->
+            <li><span onClick="button_save_image()"><a id="save_image" ref="#" download="automaton.png">Save Image</a></span></li>
 	  </ul>
 	</div>
-      </li>
       </li>
       <li><a href="#test" onClick="button_test()">Test</a></li>
     </ul>
@@ -62,15 +62,32 @@
     <div class="cp_tools">
   <ul>
     <li>
-      <div id="tools">
+      <div class="tool_box" id="tools">
         <ul>
-          <li><button id="state_button" type=button onclick="onState()"><img src="img/state.png" class="ic"></button></li>
-          <li><button id="transition_button" type=button onclick="onTransition()"><img src="img/transition.png" class="ic"></button></li>
-          <li><button id="text_button" type=button onclick="onText()">
-              <img src="img/text.png" class="ic"></button></li>
-          <li><button type=button onclick="onPlay()">
+          <li class="tool_button">
+            <button id="state_button" type=button onclick="onState()">
+              <img src="img/state.png" class="ic">
+              <div class="tool_explanation"> 状態を追加します </div>
+            </button>
+          </li>
+          <li class="tool_button">
+            <button id="transition_button" type=button onclick="onTransition()">
+              <img src="img/transition.png" class="ic">
+              <div class="tool_explanation"> 遷移規則を追加します </div>
+            </button>
+          </li>
+          <li class="tool_button">
+            <button id="text_button" type=button onclick="onText()">
+              <img src="img/text.png" class="ic">
+              <div class="tool_explanation"> テキストを追加します </div>
+            </button>
+          </li>
+          <li class="tool_button">
+            <button type=button onclick="onPlay()">
               <img src="img/start.png" class="ic">
-          </button></li>
+              <div class="tool_explanation"> シミュレーションを開始します </div>
+            </button>
+          </li>
         </ul>
       </div>
     </li>
@@ -95,9 +112,13 @@
   </ul>
 </div>
 <div id="popups"></div>
-<div id="main"> <canvas id="maincanvas" width=800 height=400>
-  </canvas>
-  </div>
+
+<input type="text" id="textform" name="Text:" required minlength="8" maxlength="16"
+       size="12" placeholder="ラベル名を入力">
+
+<div id="main">
+  <canvas id="maincanvas" width=800 height=400> </canvas>
+</div>
 <div id="tape">
 <canvas id="tapecanvas" width=800 height=50>
 </canvas>
@@ -144,6 +165,9 @@ My first automaton
 aabac
 abaCa
 cabac
+abcabc
+abababcabababc
+abaCabac
 
 Exercise 1: lock
 abcabc
@@ -151,6 +175,7 @@ abababCababC
 ababCbababC
 cababCabc
 abcababCabc
+aababCababababCabc
 
 Execrise 2: three a before b
 B
@@ -158,14 +183,17 @@ ab
 aaaB
 aaaab
 aaaaaaaaaB
+aaaaaaaaaab
 
 Exercise 3: three a before c
+bababaC
 bbbbc
 aaabbbC
 abababC
 aaaC
 aabc
 aaaabc
+aaaaaabc
 
 Exercise 4: (a|b)*c
 Cab
@@ -186,6 +214,7 @@ abaCAAAAA
 ababaC
 babaC
 bacA
+bbacABBAAA
 bbbbaabaCAAABA
 cabaC
 cbacA
@@ -203,10 +232,13 @@ ABcaaaaB
 ABcaBBBcababB
 ABAcabbA
 ABABAcbA
+AABBcababBAAcbbaA
+BBAAcababaA
 
 Exercise 9: even numbers
 bAAbAAAbAbbbbbAAA
 AbA
+AbAbbAbAbA
 
 Exercise 10: multiple of three
 baaBAAAbabbbbbaaaB
@@ -217,8 +249,8 @@ baabAAAbabbbbbaaabbbA
 
 Exercise 12: 2A=B
 ababbBbbbaaB
+abBbbA
 </p>
     <script type="text/javascript" src="js/main.js"></script>
 </body>
 </html>
-  
