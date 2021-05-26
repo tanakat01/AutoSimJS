@@ -191,10 +191,9 @@ class Tape {
             let x = e.clientX - rect.left;
             let y = e.clientY - rect.top;
             let loc = tape.representation.locatePosition(x, y);
-            //console.log(loc);
             if (loc == tape.pressed_loc) {
                 let listeners = tape.listeners;
-                for (var i = 0; i < listeners.ength; i++) {
+                for (var i = 0; i < listeners.length; i++) {
                     listeners[i].positionClicked(tape, loc);
                 }
             }
@@ -220,7 +219,7 @@ class Tape {
         if (i >= 0) this.listeners.splice(i, 1);
     }
     completeReset() {
-        this.listeners = [];
+//        this.listeners = [];
         this.show_head = false;
         this.extends_left = false;
         this.cursor = 0;

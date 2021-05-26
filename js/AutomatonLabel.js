@@ -141,10 +141,10 @@ class AutomatonLabel extends AutomatonComponent {
         select.style.position="fixed";
         select.style.visibility = "visible";
         select.style.display = "block";
-        if (canvas.select != null) {
-            parent.removeChild(canvas.select);
+        while (canvas.select.length > 0) {
+            parent.removeChild(canvas.select.pop());
         }
-        canvas.select = select;
+        canvas.select.push(select);
         parent.appendChild(select);
     }
 /*

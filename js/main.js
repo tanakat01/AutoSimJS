@@ -214,5 +214,9 @@ function new_machine(t) {
     if (automaton != null) {
         canvas.setAutomaton(automaton);
     }
-//    console.log('setting to ' + t + ',automaton=' + automaton);
+    if (t == "tm") {
+        automaton.setTape(canvas.getTape());
+        console.log('automaton.tape=' + automaton.tape);
+    }
+    //    console.log('setting to ' + t + ',automaton=' + automaton);
 }

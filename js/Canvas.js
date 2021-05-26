@@ -16,7 +16,7 @@ class Canvas{
         this.cur_tool = null;
         this.mouseDown = false;
         this.automaton = null;
-        this.select = null;
+        this.select = [];
         this.dirty = false;
         this.suppress_repaint = false;
         this.jscanvas = jscanvas;
@@ -240,14 +240,14 @@ class Canvas{
     }
     has_popup() {
 //        return this.select != null || (this.cur_tool != null && this.cur_tool.popup != null);
-        return this.select != null;
+        return this.select.length > 0;
     }
     hide_popup() {
         let changed = false;
-        if (this.select != null) {
+        while (this.select.length > 0) {
             let parent = document.getElementById('popups');
-            parent.removeChild(this.select);
-            this.select = null;
+            let select = this.select.pop();
+            parent.removeChild(select);
             changed = true;
         }
 /*

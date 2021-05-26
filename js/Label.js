@@ -9,7 +9,7 @@ class Label {
     constructor(owner) {
         this.owner = owner;
         this.text = "";
-        this.font = "sans-serif 14px";
+        this.font = "16px sans-serif";
     }
     setText(text) {
         this.text = text;
