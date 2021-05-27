@@ -137,6 +137,8 @@ class Transition extends AutomatonComponent {
 
     getSource() { return this.src; }
     getDest() { return this.dst; }
+    getOutput() { return null; }
+    getDirection() { return null; }
     transitsOn(what) {
         return this.transits.indexOf(what) >= 0;
     }

@@ -94,17 +94,21 @@
     <li>
       <div id="tmtools">
         <ul>
-          <li><button type=button onclick="alert('pause')">
+          <li><button type=button onclick="onPause()">
               <img src="img/pause.png" class="ic">
+              <div class="tool_explanation"> 一時停止します </div>
           </button></li>
-          <li><button type=button onclick="alert('forward')">
+          <li><button type=button onclick="onStep()">
               <img src="img/forward.png" class="ic">
+              <div class="tool_explanation"> 1ステップ実行 </div>
           </button></li>
-          <li><button type=button onclick="alert('backward')">
+          <li><button type=button onclick="onBackStep()">
               <img src="img/backward.png" class="ic">
+              <div class="tool_explanation"> 1ステップ戻ります </div>
           </button></li>
-      <li><button type=button onclick="alert('restart')">
+      <li><button type=button onclick="onResetSimulation()">
           <img src="img/restart.png" class="ic">
+          <div class="tool_explanation"> リセットします </div>
       </button></li>
         </ul>
       </div>
@@ -168,6 +172,13 @@ cabac
 abcabc
 abababcabababc
 abaCabac
+
+Rollback automaton
+abaCa
+cabaCb
+aabaC
+ababaCc
+abaabaC
 
 Exercise 1: lock
 abcabc

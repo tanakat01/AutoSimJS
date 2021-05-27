@@ -33,6 +33,8 @@ class StateSet {
         let ret = new StateSet(this.automaton);
         let used = new StateSet(this.automaton);
         let traversed = [];
+        let outputs = [];
+        let directions = [];
         let transitions = this.automaton.getTransitions();
 
         if(what == Alphabet_EPSILON) {
@@ -47,6 +49,8 @@ class StateSet {
                     ret.add(transition.getDest());
                     used.add(transition.getSource());
                     traversed.push(transition);
+                    outputs.push(transition.getOutput());
+                    directions.push(transition.getDirection());
                 }
             }
 
@@ -57,6 +61,8 @@ class StateSet {
                    && !used.contains(transition.getSource())) {
                     ret.add(transition.getDest());
                     traversed.push(transition);
+                    outputs.push(transition.getOutput());
+                    directions.push(transition.getDirection());
                 }
             }
         }
@@ -78,7 +84,7 @@ class StateSet {
                 }
             }
         }
-        return [ret, traversed];
+        return [ret, traversed, outputs, directions];
     }
     hasFinal() {
         for (let s of this.states) {

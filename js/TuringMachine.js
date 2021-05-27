@@ -169,7 +169,7 @@ class TMTransition extends DFATransition {
         }
     }
     setKey(key, fin) {
-        console.log('TMTransition key=' + key);
+        //console.log('TMTransition key=' + key);
         if(key == "direction") {
             this.direction = (fin.readGroup() == "R" ? 1 : -1);
             return true;
@@ -180,20 +180,45 @@ class TMTransition extends DFATransition {
             return super.setKey(key, fin);
         }
     }
+    getOutput() {
+        return this.output;
+    }
+    getDirection() {
+        return this.direction;
+    }
 }
+
+class TMSnapshot{
+    constructor(automaton) {
+        this.automaton = automaton;
+        this.current = automaton.getCurrent();
+        this.head = automaton.tape.getHeadPosition();
+        this.tape_content = automaton.tape.contents.getContent();
+        //console.log('tape_content=' + this.tape_content);
+    }
+    restore() {
+        this.automaton.setCurrent(this.current);
+        this.automaton.tape.setHeadPosition(this.head);
+        this.automaton.tape.contents.setContent(this.tape_content);
+        //console.log('restore tape_content=' + this.automaton.tape.contents.getContent());
+        this.automaton.tape.write(0, this.tape_content[0][0]);
+    }
+}
+
 
 class TuringTapeListener {
     constructor(automaton) {
         this.automaton = automaton;
-        console.log('TuringTapeListener constructor');
+        //console.log('TuringTapeListener constructor');
     }
     positionClicked(tape, position) {
-        console.log('TuringTapeListener position Clicked, position=', position);
+        //console.log('TuringTapeListener position Clicked, position=', position);
         tape.setCursorPosition(position);
+        tape.grabFocus();
     }
 
     keyTyped(tape, what) {
-        console.log('TuringTapeListener keyTyped, what=', what);
+        //console.log('TuringTapeListener keyTyped, what=', what);
         if(what == Alphabet_EPSILON) return;
         if(what == Alphabet_ELSE) return;
         if(what == 'Backspace') {
@@ -219,6 +244,7 @@ class TuringTape extends Tape {
         this.representation.computeSize();
         this.setHeadPosition(2);
         this.setCursorPosition(2);
+        this.removeFocus();
         this.setShowHead(true);
         this.repaint();
     }
@@ -228,20 +254,28 @@ class TuringMachine extends DFA {
     constructor() {
         super();
         this.getAlphabet().add(Alphabet_BLANK);
-        console.log('TuringMachine constructor');
+        //console.log('TuringMachine constructor');
         this.tape_listener = new TuringTapeListener(this);
-        console.log('end of tape listener');
+        //console.log('end of tape listener');
+        this.pause = true;
     }
     setTape(tape) {
-        let tapecanvas = document.getElementById('tapecanvas');
-        this.tape = new TuringTape(tapecanvas);
-        this.tape.reset();
-        this.canvas.setTape(this.tape);
-        this.tape.addTapeListener(this.tape_listener);
-        console.log('tape=', tape);
+        //console.log('setTape(tape=' + tape + 'this.tape=' + this.tape);
+        //console.trace();
+        this.tape = tape;
+        if (this.tape != null) {
+            this.tape.set_tm_mode(true);
+            this.tape.reset();
+            this.tape.clearTapeListener();
+            this.tape.addTapeListener(this.tape_listener);
+        }
     }
     setToolBoxTape(toolbox, tape) {
-        console.log('toolsbox' + toolbox + ',tape=', tape);
+        //console.log('toolsbox' + toolbox + ',tape=', tape);
+        if (tape != null) {
+            this.setTape(tape);
+        }
+        show_tmtools();
     }
     createTransition(src, dst) {
         for(const transition of this.transitions) {
@@ -252,4 +286,88 @@ class TuringMachine extends DFA {
         }
         return new TMTransition(this, src, dst);
     }
+    doPlay() {
+        if (this.in_animation) return;
+        //console.log('do_play');
+        let automaton = this;
+        automaton.pause = false;
+        let timer = setInterval(function() {
+            //console.log('do_play step');
+            if (automaton.pause || !automaton.doStep()) {
+                clearInterval(timer);
+                return;
+            }
+        }, 500);
+        //console.log('end of do_play');
+    }
+    doPause() {
+        //console.log('doPause()');
+        this.pause = true;
+    }
+    doStep() {
+        //console.log('in_animation=' + this.in_animation);
+        if (this.in_animation) return;
+        //console.log('tm doStep()');
+        this.tape.removeFocus();
+        if (this.current == null || this.current.size() == 0) {
+            let states = this.getInitialStates();
+            //console.log('initial states=' + states);
+            this.setCurrent(states);
+        }
+        this.history.push(new TMSnapshot(this));
+        //console.log(this.tape);
+        let pos = this.tape.getHeadPosition();
+        let what = this.tape.read(pos);
+        //console.log('this.getCurrent()=' + this.getCurrent());
+        let data = this.getCurrent().advance(what);
+        //console.log('pos=' + pos + ',what=' + what + ',data=' + data);
+        if (data[0].size() != 1) {
+            return false;
+        }
+        let traversed = data[1];
+        let output = data[2][0];
+        let direction = data[3][0];
+        let automaton = this;
+        let step = 0;
+        let tape = this.tape;
+        automaton.setCurrent(null);
+        this.in_animation = true;
+        if (output != Alphabet_ELSE) {
+            tape.write(pos, output);
+        }
+        let timer = setInterval(function() {
+            step++;
+            if (step >= 10) {
+                for (let t of traversed) {
+                    t.setCursorExists(false);
+                    tape.setHeadPosition(pos + direction);
+                }
+                automaton.setCurrent(data[0]);
+                automaton.canvas.repaint();
+                clearInterval(timer);
+                automaton.in_animation = false;
+                return;
+            }
+            tape.setHeadPosition(pos + direction * step / 10);
+            for (let t of traversed) {
+                t.setCursorExists(true);
+                t.setCursorProgress(step / 10);
+            }
+            automaton.canvas.repaint();
+            //console.log('step=' + step);
+        }, 25);
+        return true;
+    }
+    doBackStep() {
+        if (this.in_animation) return;
+        if(this.history.length > 0) {
+            this.history.pop().restore();
+        }
+    }
+    doResetSimulation() {
+        this.setCurrent(null);
+        this.tape.reset();
+        this.history = [];
+    }
+    
 }

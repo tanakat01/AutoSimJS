@@ -91,6 +91,8 @@ class Test {
     doTest() {
         if (this.select == null) return;
         let i = this.select.value;
+        if (!i) return;
+        //console.log('i=' + JSON.stringify(i));
         let OK = true;
         this.resultArea.value = "";
         for (let c of this.testcases[i].cases) {

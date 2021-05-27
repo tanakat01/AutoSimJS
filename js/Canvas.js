@@ -122,7 +122,8 @@ class Canvas{
 	automaton.setCanvas(null);
         this.automaton = automaton;
         automaton.setCanvas(this);
-        if(this.tape != null && this.toolbox != null && automaton != null) {
+        //console.log('setAUtomaton, this.tape=' + this.tape +',automaton=' + automaton);
+        if((this.tape != null || this.toolbox != null) && automaton != null) {
             automaton.setToolBoxTape(this.toolbox, this.tape);
         }
         this.repaint();

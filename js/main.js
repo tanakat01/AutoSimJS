@@ -92,6 +92,19 @@ function onPlay() {
 //    console.log('onPlay()');
     canvas.getAutomaton().doPlay();
 }
+function onPause() {
+//    console.log('onPlay()');
+    canvas.getAutomaton().doPause();
+}
+function onStep() {
+    canvas.getAutomaton().doStep();
+}
+function onBackStep() {
+    canvas.getAutomaton().doBackStep();
+}
+function onResetSimulation() {
+    canvas.getAutomaton().doResetSimulation();
+}
 function popup(n) {
 //    console.log('state_popup(' + n + ')');
     canvas.popup(n);
@@ -199,12 +212,12 @@ function button_test() {
 
 function new_machine(t) {
     if (!window.confirm("Are you sure you want to clear everything for a new project?")) { return; }
-    if (t != "tm") {
-        hide_tmtools();
-    }
-    else {
-        show_tmtools();
-    }
+//    if (t != "tm") {
+//        hide_tmtools();
+//    }
+//    else {
+//        show_tmtools();
+//    }
     automaton_type = t;
     let automaton = null;
     if (t == "dfa") {
@@ -219,9 +232,9 @@ function new_machine(t) {
     if (automaton != null) {
         canvas.setAutomaton(automaton);
     }
-    if (t == "tm") {
-        automaton.setTape(canvas.getTape());
-        console.log('automaton.tape=' + automaton.tape);
-    }
+//    if (t == "tm") {
+//        automaton.setTape(canvas.getTape());
+//        console.log('automaton.tape=' + automaton.tape);
+//    }
     //    console.log('setting to ' + t + ',automaton=' + automaton);
 }

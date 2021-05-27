@@ -18,6 +18,13 @@ class TapeContents {
         let ret = which[position];
         return ret == null ? Alphabet_BLANK : ret;
     }
+    getContent() {
+        return [this.positives.concat(), this.negatives.concat()];
+    }
+    setContent(data) {
+        this.positives = data[0];
+        this.negatives = data[1];
+    }
     set(position, value) {
         let which = position < 0 ? this.negatives : this.positives;
         if (position < 0) position = -position
@@ -45,6 +52,7 @@ class TapeRepresentation {
     constructor(tape) {
         this.tape = tape;
         this.last_length = -1;
+        this.has_focus = false;
         this.computeSize();
     }
     paintComponent(g) {
@@ -124,8 +132,13 @@ class TapeRepresentation {
     getSize() {
         return new Dimension(this.tape.canvas.width, this.tape.canvas.height);
     }
+    setFocus(val) {
+        //console.log('setFocus=' + val);
+        this.has_focus = val;
+        this.repaint();
+    }
     hasFocus() {
-        return true;
+        return this.has_focus;
     }
     /* end JPanels */
     
@@ -208,11 +221,15 @@ class Tape {
                 listeners[i].keyTyped(tape, c);
             }
         }, false);
+        this.tm_mode = false;
     }
     addTapeListener(listener) {
         if(!this.listeners.includes(listener)) {
             this.listeners.push(listener);
         }
+    }
+    clearTapeListener() {
+        this.listeners = [];
     }
     removeTapeListener(listener) {
         let i = this.listeners.indexOf(listener);
@@ -224,11 +241,29 @@ class Tape {
         this.extends_left = false;
         this.cursor = 0;
         this.reset();
+        this.removeFocus();
+    }
+    set_tm_mode(val) {
+        if (val) {
+            show_tmtools();
+        } else {
+            hide_tmtools();
+        }
+        this.tm_mode = val;
     }
     reset() {
         this.contents = new TapeContents();
         this.representation.computeSize();
-        this.setHeadPosition(0);
+        if (this.tm_mode) {
+            this.setHeadPosition(2);
+            this.setCursorPosition(2);
+            this.removeFocus();
+            this.setShowHead(true);
+        } else {
+            this.setHeadPosition(0);
+            this.setCursorPosition(0);
+            this.removeFocus();
+        }
         this.repaint();
     }
     repaint() {
@@ -284,5 +319,14 @@ class Tape {
     }
     grabFocus() {
         this.canvas.focus();
+        //console.log('this.representation=' + this.representation);
+        if (this.representation != null) {
+            this.representation.setFocus(true);
+        }
+    }
+    removeFocus() {
+        if (this.representation != null) {
+            this.representation.setFocus(false);
+        }
     }
 }

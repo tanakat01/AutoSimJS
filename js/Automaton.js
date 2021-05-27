@@ -13,6 +13,7 @@ class MyTapeListener {
     }
 
     keyTyped(tape, what) {
+        if (this.automaton.in_animation) return;
         if(what == Alphabet_EPSILON) return;
         if(what == Alphabet_ELSE) return;
         if(what == ' ') return;
@@ -41,6 +42,7 @@ class MyTapeListener {
         let step = 0;
         let automaton = this.automaton;
         automaton.setCurrent(null);
+        automaton.in_animation = true;
         let timer = setInterval(function() {
             step++;
             if (step >= 10) {
@@ -51,6 +53,7 @@ class MyTapeListener {
                 automaton.setCurrent(data[0]);
                 automaton.canvas.repaint();
                 clearInterval(timer);
+                automaton.in_animation = false;
                 return;
             }
             tape.setHeadPosition(pos + step / 10);
@@ -60,7 +63,7 @@ class MyTapeListener {
             }
             automaton.canvas.repaint();
 //            console.log('step=' + step);
-        }, 50);
+        }, 25);
         /*
           anim = anim.merge(tape.setHeadPositionAnimate(pos + 1));
 
@@ -102,6 +105,7 @@ class Automaton {
         this.history = [];
         
         this.tape_listener = new MyTapeListener(this);
+        this.in_animation = false;
 
     }
 
@@ -151,7 +155,16 @@ class Automaton {
     }
     setCanvas(canvas) { this.canvas = canvas; }
     setToolBoxTape(toolbox, tape) {
-        this.toolbox.setPlayControlsVisible(false);
+        if (this.toolbox != null) {
+            this.toolbox.setPlayControlsVisible(false);
+        }
+        this.tape = tape;
+        if (this.tape != null) {
+            this.tape.set_tm_mode(false);
+            this.tape.reset();
+            this.tape.clearTapeListener();
+            this.tape.addTapeListener(this.tape_listener);
+        }
     }
 
     exposeConnections(g, what) {
@@ -243,6 +256,7 @@ class Automaton {
 //        console.log('doPlay() tape=' + tape.constructor.name);
         if(tape != null) {
             tape.completeReset();
+            tape.clearTapeListener();
             tape.addTapeListener(this.tape_listener);
             tape.setShowHead(true);
             tape.grabFocus();
