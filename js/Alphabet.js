@@ -6,12 +6,6 @@
  */
 
 class Alphabet {
-/*
-    static EPSILON = 'ε';
-    static ELSE = '*';
-    static BLANK = '_';
-    static alphabet = "abcdefghijklmnopqrstuvwxyz";
-*/
     
     static toString(what) {
         switch(what) {
