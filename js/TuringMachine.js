@@ -224,11 +224,13 @@ class TuringTapeListener {
         if(what == 'Backspace') {
             let cursor = tape.getCursorPosition();
             cursor = Math.max(0, cursor - 1);
-            tape.write(cursor, ' ');
+            tape.write(cursor, Alphabet_BLANK);
             tape.setCursorPosition(cursor);
             return;
         }
+        if(what == ' ') what = Alphabet_BLANK;
         if(what.length > 1) return;
+        if(!this.automaton.getAlphabet().includes(what)) return;
         let cursor = tape.getCursorPosition();
         tape.write(cursor, what);
         tape.setCursorPosition(cursor + 1);
