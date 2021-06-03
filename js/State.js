@@ -6,52 +6,46 @@
  */
 
 class State  extends AutomatonComponent{
-/*
-    static RADIUS = State_RADIUS;
-    static INITARROW_LEN = 1.5 * Transition_ARROW_LEN;
-*/
     constructor(automaton) {
         super(automaton);
-        //console.log('State constructor, automaton=' + automaton + 'this.automaton=' + this.automaton);
         this.x = 0;
         this.y = 0;
         this.is_initial = false;
         this.is_final = false;
     }
     // abstract methods
-    /*
-      public abstract boolean canBeInitial();
-    */
     remove() { this.getAutomaton().removeState(this); }
-
     // accessor methods
     isInitial() { return this.is_initial; }
+
     setInitial(value) {
-        if(this.is_initial != value) {
+        if (this.is_initial != value) {
             this.is_initial = value;
-//            console.log('state setInitial(value=' + value);
             this.getAutomaton().invalidateBounds();
             let canvas = this.getAutomaton().getCanvas();
-            if(canvas != null) this.expose(canvas.getGraphics());
+            if (canvas != null) this.expose(canvas.getGraphics());
         }
     }
+
     isFinal() { return this.is_final; }
+
     setFinal(value) {
-        if(this.is_final != value) {
+        if (this.is_final != value) {
             this.is_final = value;
-//            console.log('state setFinal(value=' + value);
             let canvas = this.getAutomaton().getCanvas();
-            if(canvas != null) this.expose(canvas.getGraphics());
+            if (canvas != null) this.expose(canvas.getGraphics());
         }
     }
+
     isCurrent() { return this.getAutomaton().getCurrent().contains(this); }
+
     getX() { return this.x; }
+
     getY() { return this.y; }
 
     move(x, y) {
         this.x = x;
         this.y = y;
-        //console.log(this.getAutomaton());
         this.getAutomaton().invalidateBounds();
         return this;
     }
@@ -59,7 +53,7 @@ class State  extends AutomatonComponent{
     getBounds(rect, g) {
         rect.setBounds(this.x - State_RADIUS, this.y - State_RADIUS, 2 * State_RADIUS, 2 * State_RADIUS);
         rect.grow(2, 2);
-        if(this.isInitial()) {
+        if (this.isInitial()) {
             let dx = this.x - State_RADIUS / Math.sqrt(2.0);
             let dy = this.y + State_RADIUS / Math.sqrt(2.0);
             rect.add(dx - State_INITARROW_LEN - 2, dy + State_INITARROW_LEN + 2);
@@ -68,46 +62,11 @@ class State  extends AutomatonComponent{
     }
 
     isIn(x0, y0, g) {
-        // console.log('this.x=' + this.x + ',x0=' + x0 + ',this.y=' + this.y + ',y0=' + y0 + ',State_RADIUS=' + State_RADIUS);
         return (this.x - x0) * (this.x - x0) + (this.y - y0) * (this.y - y0) < State_RADIUS * State_RADIUS;
     }
-    /*
 
-      private class InitialItem extends JCheckBoxMenuItem
-      implements ActionListener {
-      public InitialItem() {
-      super("Initial State");
-      setState(isInitial());
-      setEnabled(canBeInitial());
-      addActionListener(this);
-      }
-      public void actionPerformed(ActionEvent e) {
-      setInitial(getState());
-      getAutomaton().getCanvas().commitTransaction(true);
-      }
-      }
-
-      private class FinalItem extends JCheckBoxMenuItem
-      implements ActionListener {
-      public FinalItem() {
-      super("Final State");
-      setState(isFinal());
-      addActionListener(this);
-      }
-      public void actionPerformed(ActionEvent e) {
-      setFinal(getState());
-      getAutomaton().getCanvas().commitTransaction(true);
-      }
-      }
-
-      public void createMenu(JPopupMenu menu) {
-      menu.add(new InitialItem());
-      menu.add(new FinalItem());
-      super.createMenu(menu);
-      }
-    */
     draw(g) {
-        if(this.isInitial()) {
+        if (this.isInitial()) {
             let dx = this.x - State_RADIUS / Math.sqrt(2.0);
             let dy = this.y + State_RADIUS / Math.sqrt(2.0);
             let th = 0.75 * Math.PI;
@@ -136,7 +95,7 @@ class State  extends AutomatonComponent{
         let bg = this.getAutomaton().getCurrentDraw().contains(this)
             ? Color.green : Color.red;
         GraphicsUtil.switchToWidth(g, 3);
-        if(this.isFinal()) {
+        if (this.isFinal()) {
             g.setColor(Color.white);
             g.fillOval(this.x - State_RADIUS, this.y - State_RADIUS, 2 * State_RADIUS, 2 * State_RADIUS);
             g.setColor(bg);
@@ -163,12 +122,9 @@ class State  extends AutomatonComponent{
         select.size = 3;
         select.multiple = true;
         select.style.overflow = 'hidden';
-        //
         let option_initial = document.createElement('option');
         let select_str = this.isInitial() ? '\u{2713}' : '\u{3000}';
         option_initial.text = select_str + 'Initial State';
-/*        option_initial.selected = this.isInitial();
-*/
         option_initial.disabled = (!this.isInitial() && !this.canBeInitial());
         option_initial.onclick = function() {
             if (state.isInitial()) {
@@ -179,13 +135,9 @@ class State  extends AutomatonComponent{
             canvas.hide_popup();
         };
         select.appendChild(option_initial);
-        // 
         let option_final = document.createElement('option');
         select_str = this.isFinal() ? '\u{2713}' : '\u{3000}';
         option_final.text = select_str + 'Final State';
-/*
-        option_final.selected = this.isFinal();
-*/
         option_final.onclick = function() {
             state.setFinal(!state.isFinal());
             canvas.hide_popup();
@@ -199,7 +151,6 @@ class State  extends AutomatonComponent{
             canvas.hide_popup();
         };
         select.appendChild(option_delete);
-        // 
         let rect = canvas.jscanvas.getBoundingClientRect();
         let x = clientX + rect.left;
         let y = clientY + rect.top;
@@ -214,61 +165,33 @@ class State  extends AutomatonComponent{
         canvas.select.push(select);
         parent.appendChild(select);
     }
-/*
-    showMenuOld(clientX, clientY) {
-        let canvas = this.getAutomaton().getCanvas();
-        let rect = canvas.jscanvas.getBoundingClientRect();
-        let statepopup = document.getElementById('statepopup');
-//        let rect1 = statepopup.getBoundingClientRect();
-//        console.log([rect.left, rect.top, clientX, clientY, rect1.left, rect1.top]);
-        let x = clientX + rect.left;
-        let y = clientY + rect.top;
-        y -= 50;
-        //        let x = clientX;
-//        let y = clientY;
-        let ts = new ToolState(canvas);
-        ts.current = this;    
-        canvas.setTool(ts);
-        //console.log('State:showMenu, canvas=' + canvas);
-        //console.log('canvas.cur_tool=' + canvas.cur_tool);
-        ts.popup = statepopup;
-        //console.log(statepopup + ",x" + x +",y" + y);
-        statepopup.style.left=x + "px";
-        statepopup.style.top=y + "px";
-        statepopup.style.position="fixed";
-        statepopup.style.visibility="visible";
-        statepopup.style.opacity="1";
-        statepopup.style.display="block";
-    }
-*/    
 
     print(fout) {
         super.print(fout);
-        if(this.isInitial()) {
+        if (this.isInitial()) {
             fout.print("initial "); fout.printlnGroup("yes");
         }
-        if(this.isFinal()) {
+        if (this.isFinal()) {
             fout.print("final "); fout.printlnGroup("yes");
         }
         fout.print("coord "); fout.printlnGroup(Math.round(this.x) + " " + Math.round(this.y));
     }
+
     setKey(key, fin) {
-        if(key == "initial") {
+        if (key == "initial") {
             let what = fin.readGroup();
-//            console.log('initial what=' + what);
-            if(what == "yes") {
-//                console.log('call setInitial' + true);
+            if (what == "yes") {
                 this.setInitial(true);
             }
             return true;
-        } else if(key == "final") {
+        } else if (key == "final") {
             let what = fin.readGroup();
-            if(what =="yes") this.setFinal(true);
+            if (what =="yes") this.setFinal(true);
             return true;
-        } else if(key == "coord") {
+        } else if (key == "coord") {
             let value = fin.readGroup();
             let sep = value.indexOf(' ');
-            if(sep < 0) {
+            if (sep < 0) {
                 throw new Error("Missing argument");
             }
             try {
@@ -282,6 +205,4 @@ class State  extends AutomatonComponent{
             return super.setKey(key, fin);
         }
     }
-    /* 
-     */
 }

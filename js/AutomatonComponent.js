@@ -27,10 +27,10 @@ class AutomatonComponent {
     }
 
     read(fin) {
-        while(!fin.atGroupEnd()) {
+        while (!fin.atGroupEnd()) {
             let key = fin.readLine().trim();
-            if(key != null && key.length > 0) {
-                if(!this.setKey(key, fin)) {
+            if (key != null && key.length > 0) {
+                if (!this.setKey(key, fin)) {
                     fin.readGroup();
                 }
             }

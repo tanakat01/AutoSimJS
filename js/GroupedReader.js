@@ -10,7 +10,9 @@ class StringReader {
         this.text = text;
         this.i = 0;
     }
+
     close() {}
+
     readLine() {
         let r = '';
         while (this.i < this.text.length) {
@@ -28,45 +30,47 @@ class GroupedReader {
         this.line_number = 1;
         this.buffer = "";
     }
+
     close()  {
         this.reader.close();
     }
+
     readLine(){
         this.getBuffer();
-
         // find end of buffer (if any)
         let pos_lb = this.findFirstUnescaped(this.buffer, '{');
         let pos_rb = this.findFirstUnescaped(this.buffer, '}');
         let pos = pos_lb;
-        if(pos_rb >= 0 && (pos == -1 || pos_rb < pos)) pos = pos_rb;
-
+        if (pos_rb >= 0 && (pos == -1 || pos_rb < pos)) pos = pos_rb;
         // compute ret; trim buffer
         let ret = "";
-        if(pos < 0) {
+        if (pos < 0) {
             ret = this.buffer;
             this.buffer = null;
         } else {
             ret = this.buffer.substring(0, pos);
             this.buffer = this.buffer.substring(pos);
         }
-
         ret = this.unprotect(ret);
         return ret;
     }
+
     beginGroup() {
         this.getBuffer();
-        if(this.buffer.charAt(0) != '{') {
+        if (this.buffer.charAt(0) != '{') {
             throw new Error("Not at beginning of group");
         }
         ++this.depth;
         this.buffer = this.buffer.substring(1);
     }
+
     startGroup() {
         this.beginGroup();
     }
+
     endGroup() {
         this.getBuffer();
-        if(this.buffer.charAt(0) != '}') {
+        if (this.buffer.charAt(0) != '}') {
             throw new Error("Not at end of group");
         }
         --this.depth;
@@ -77,6 +81,7 @@ class GroupedReader {
         this.getBuffer();
         return this.buffer == null;
     }
+
     atGroupEnd() {
         this.getBuffer();
         return this.buffer.charAt(0) == '}';
@@ -86,7 +91,7 @@ class GroupedReader {
         this.beginGroup();
         let ret = this.readLine();
         this.getBuffer();
-        while(this.buffer.charAt(0) != '}') {
+        while (this.buffer.charAt(0) != '}') {
             ret += "\n";
             ret += this.readLine();
             this.getBuffer();
@@ -96,16 +101,13 @@ class GroupedReader {
     }
 
     getBuffer() {
-        if(this.buffer != null && this.buffer.length > 0) return;
-        
+        if (this.buffer != null && this.buffer.length > 0) return;
         ++this.line_number;
-        //console.log('this.reader=' + this.reader);
-        //console.log('this.read.class=' + this.reader.constructor.name);
         this.buffer = this.reader.readLine();
-        if(this.buffer == null) return;
+        if (this.buffer == null) return;
 
         let i = 0;
-        while(i < this.depth && this.buffer.length > i
+        while (i < this.depth && this.buffer.length > i
               && this.buffer.charAt(i) == '\t') {
             i++;
         }
@@ -114,19 +116,20 @@ class GroupedReader {
 
     findFirstUnescaped(search, find) {
         let pos = 0;
-        while(true) {
+        while (true) {
             pos = search.indexOf(find, pos);
-            if(pos < 0) return -1;
-            if(pos == 0 || search.charAt(pos - 1) != '\\') return pos;
+            if (pos < 0) return -1;
+            if (pos == 0 || search.charAt(pos - 1) != '\\') return pos;
             ++pos;
         }
     }
+
     unprotect(what) {
         let pos = 0;
         let ret = "";
-        while(true) {
+        while (true) {
             let newpos = what.indexOf('\\', pos);
-            if(newpos < 0) break;
+            if (newpos < 0) break;
             
             ret += what.substring(pos, newpos);
             ret += what.charAt(newpos + 1);

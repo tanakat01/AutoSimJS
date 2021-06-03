@@ -21,7 +21,7 @@ class Alphabet {
 
     set(what) {
         this.data = "";
-        for(let i = 0; i < what.length; i++) {
+        for (let i = 0; i < what.length; i++) {
             this.add(what.charAt(i));
         }
     }
@@ -29,15 +29,16 @@ class Alphabet {
         return this.data;
     }
     add(what) {
-        if(this.data.indexOf(what) < 0) this.data = this.data + what;
+        if (this.data.indexOf(what) < 0) this.data = this.data + what;
     }
-    remove(what) {
-        let i = this.data.indexOf(what);
-        if(i >= 0) {
-            this.data = this.data.substring(0, i)
-                + this.data.substring(i + 1);
-        }
-    }
+    // not used yet (2021/6/1)
+    //remove(what) {
+    //    let i = this.data.indexOf(what);
+    //    if (i >= 0) {
+    //        this.data = this.data.substring(0, i)
+    //            + this.data.substring(i + 1);
+    //    }
+    //}
     includes(what) {
         return this.data.indexOf(what) >= 0;
     }

@@ -10,25 +10,31 @@ class StateSet {
         this.automaton = automaton;
         this.states = [];
     }
+
     size() {
         return this.states.length;
     }
+
     contains(what) {
         return this.states.includes(what);
     }
+
     remove(what) {
         let i = this.states.indexOf(what);
         if (i >= 0) this.states.splice(i, 1);
     }
+
     add(state) {
-        if(!this.states.includes(state)) {
+        if (!this.states.includes(state)) {
             this.states.push(state);
         }
     }
+
     expose(g) {
-        for (var state of this.states) 
+        for (let state of this.states) 
             state.expose(g);
     }
+
     advance(what) {
         let ret = new StateSet(this.automaton);
         let used = new StateSet(this.automaton);
@@ -36,15 +42,14 @@ class StateSet {
         let outputs = [];
         let directions = [];
         let transitions = this.automaton.getTransitions();
-
-        if(what == Alphabet_EPSILON) {
-            for(var state of this.states) {
+        if (what == Alphabet_EPSILON) {
+            for (let state of this.states) {
                 ret.add(state);
             }
         } else {
             // find transitions for selected character
-            for(var transition of transitions) {
-                if(transition.transitsOn(what)
+            for (let transition of transitions) {
+                if (transition.transitsOn(what)
                    && this.contains(transition.getSource())) {
                     ret.add(transition.getDest());
                     used.add(transition.getSource());
@@ -55,8 +60,8 @@ class StateSet {
             }
 
             // handle ELSE transitions
-            for(var transition of transitions) {
-                if(transition.transitsOn(Alphabet_ELSE)
+            for (let transition of transitions) {
+                if (transition.transitsOn(Alphabet_ELSE)
                    && this.contains(transition.getSource())
                    && !used.contains(transition.getSource())) {
                     ret.add(transition.getDest());
@@ -66,19 +71,18 @@ class StateSet {
                 }
             }
         }
-
         // closure on EPSILON transitions
         let changed = true;
-        while(changed) {
+        while (changed) {
             changed = false;
-            for(var transition of transitions) {
-                if(transition.transitsOn(Alphabet_EPSILON)
+            for (let transition of transitions) {
+                if (transition.transitsOn(Alphabet_EPSILON)
                    && ret.contains(transition.getSource())) {
-                    if(!ret.contains(transition.getDest())) {
+                    if (!ret.contains(transition.getDest())) {
                         ret.add(transition.getDest());
                         changed = true;
                     }
-                    if(!traversed.includes(transition)) {
+                    if (!traversed.includes(transition)) {
                         traversed.push(transition);
                     }
                 }
@@ -86,12 +90,14 @@ class StateSet {
         }
         return [ret, traversed, outputs, directions];
     }
+
     hasFinal() {
         for (let s of this.states) {
             if (s.is_final) return true;
         }
         return false;
     }
+
     toString() {
         let r = '[';
         for (let s of this.states) {
@@ -100,9 +106,4 @@ class StateSet {
         r += ']';
         return r;
     }
-    /*
-      public Iterator<State> iterator() {
-      return states.iterator();
-      }
-    */
 }

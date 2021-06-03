@@ -9,9 +9,13 @@ class AutomatonLabelOwner {
     constructor(parent) {
         this.parent = parent;
     }
+
     getLabelX(which) { return this.parent.x; }
+
     getLabelY(which) { return this.parent.y; }
+
     getLabelHAlign(which) { return this.parent.halign; }
+
     getLabelVAlign(which) { return this.parent.valign; }
 }
 class AutomatonLabel extends AutomatonComponent {
@@ -39,15 +43,19 @@ class AutomatonLabel extends AutomatonComponent {
     }
 
     getLabel() { return this.label; }
+
     getBounds(rect, g) {
         return this.label.getBoundsRect(rect, g);
     }
+
     isIn(x, y, g) {
         return this.label.getBounds(g).contains(x, y);
     }
+
     remove() {
         this.getAutomaton().removeComponent(this);
     }
+
     draw(g) {
         this.label.draw(g);
     }
@@ -56,7 +64,7 @@ class AutomatonLabel extends AutomatonComponent {
         super.print(fout);
         this.label.print(fout);
         fout.print("coord "); fout.printlnGroup(Math.round(this.x) + " " + Math.round(this.y));
-        if(this.halign != GraphicsUtil_H_LEFT) {
+        if (this.halign != GraphicsUtil_H_LEFT) {
             fout.print("halign");
             switch(thishalign) {
             case GraphicsUtil_H_RIGHT:
@@ -68,7 +76,7 @@ class AutomatonLabel extends AutomatonComponent {
             default: fout.printlnGroup("??");
             }
         }
-        if(this.valign != GraphicsUtil_V_BASELINE) {
+        if (this.valign != GraphicsUtil_V_BASELINE) {
             fout.print("valign");
             switch(this.halign) {
             case GraphicsUtil_V_BOTTOM:
@@ -86,10 +94,10 @@ class AutomatonLabel extends AutomatonComponent {
     }
 
     setKey(key, fin) {
-        if(key =="coord") {
+        if (key =="coord") {
             let value = fin.readGroup();
             let sep = value.indexOf(' ');
-            if(sep < 0) {
+            if (sep < 0) {
                 throw new Error("Missing argument");
             }
             try {
@@ -99,18 +107,18 @@ class AutomatonLabel extends AutomatonComponent {
                 throw new Error("Nonnumeric argument");
             }
             return true;
-        } else if(key == "halign") {
+        } else if (key == "halign") {
             let val = fin.readGroup();
-            if(val == "right") this.halign = GraphicsUtil_H_RIGHT;
-            if(val =="center") this.halign = GraphicsUtil_H_CENTER;
+            if (val == "right") this.halign = GraphicsUtil_H_RIGHT;
+            if (val =="center") this.halign = GraphicsUtil_H_CENTER;
             return true;
-        } else if(key =="valign") {
+        } else if (key =="valign") {
             let val = fin.readGroup();
-            if(val =="bottom") this.halign = GraphicsUtil_V_BOTTOM;
-            if(val =="center") this.halign = GraphicsUtil_V_CENTER;
-            if(val =="top") this.halign = GraphicsUtil_V_TOP;
+            if (val =="bottom") this.halign = GraphicsUtil_V_BOTTOM;
+            if (val =="center") this.halign = GraphicsUtil_V_CENTER;
+            if (val =="top") this.halign = GraphicsUtil_V_TOP;
             return true;
-        } else if(this.label.setKey(key, fin)) {
+        } else if (this.label.setKey(key, fin)) {
             return true;
         } else {
             return super.setKey(key, fin);
@@ -124,7 +132,6 @@ class AutomatonLabel extends AutomatonComponent {
         let select = document.createElement('select');
         let alphabet = automaton.getAlphabet().toString();
         select.size = 2;
-//        select.style.overflow = 'hidden';
         let option_delete = document.createElement('option');
         option_delete.text = '\u{3000}' + 'Delete';
         option_delete.onclick = function() {
@@ -132,7 +139,6 @@ class AutomatonLabel extends AutomatonComponent {
             canvas.hide_popup();
         };
         select.appendChild(option_delete);
-        // 
         let rect = canvas.jscanvas.getBoundingClientRect();
         let x = clientX + rect.left;
         let y = clientY + rect.top;
@@ -147,23 +153,4 @@ class AutomatonLabel extends AutomatonComponent {
         canvas.select.push(select);
         parent.appendChild(select);
     }
-/*
-    showMenuOrig(clientX, clientY) {
-        let canvas = this.getAutomaton().getCanvas();
-        let rect = canvas.jscanvas.getBoundingClientRect();
-        let x = clientX + rect.left;
-        let y = clientY + rect.top;
-        let ts = new ToolText(canvas);
-        ts.current = this;    
-        canvas.setTool(ts);
-        let popup = document.getElementById('text_popup');
-        ts.popup = popup;
-        popup.style.position="fixed";
-        popup.style.visibility="visible";
-        popup.style.opacity="1";
-        popup.style.display="block";
-        popup.style.left=x + "px";
-        popup.style.top=y + "px";
-    }
-*/    
 }

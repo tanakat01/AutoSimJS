@@ -9,6 +9,7 @@ class DFAState extends State {
     constructor(automaton) {
         super(automaton);
     }
+
     canBeInitial() {
         return this.isInitial() || this.automaton.getInitialStates().size() == 0;
     }
@@ -18,11 +19,11 @@ class DFATransition extends Transition {
     constructor(automaton, src, dst) {
         super(automaton, src, dst);
     }
-    canBeTransit(what) {
-        if(what == Alphabet_EPSILON) return false;
 
-        for(const transition of this.automaton.transitions) {
-            if(this != transition
+    canBeTransit(what) {
+        if (what == Alphabet_EPSILON) return false;
+        for (const transition of this.automaton.transitions) {
+            if (this != transition
                && transition.getSource() == this.getSource()
                && transition.transitsOn(what)) {
                 return false;
@@ -36,24 +37,26 @@ class DFA extends Automaton{
     constructor() {
         super();
     }
+
     createState() {
         return new DFAState(this);
     }
+
     createTransition(src, dst) {
-        for(const transition of this.transitions) {
-            if(transition.getSource() == src
+        for (const transition of this.transitions) {
+            if (transition.getSource() == src
                && transition.getDest() == dst) {
                 return null;
             }
         }
         return new DFATransition(this, src, dst);
     }
+
     testOne(test) {
         let str = '';
         let stateSet = this.getInitialStates();
-        if(stateSet.size() == 0) {
+        if (stateSet.size() == 0) {
           return [false, '**FAILURE** <No Initial State>'];
-	  //return [false, '\u3042\u3044\u3046\u3048\u30fc'];
         }
 
         let exTerm, isTerm;

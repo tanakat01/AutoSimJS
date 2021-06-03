@@ -6,6 +6,7 @@ class TestCase {
         this.select = null;
         this.options = [];
         this.resultArea = null;
+        this.tm_mode = null;
     }
 };
 class Test {
@@ -13,45 +14,41 @@ class Test {
         this.canvas = canvas;
         this.menu = null;
         this.parent = null;
-        let text = document.getElementById('testfile');
-        this.testcases = this.readTestCases(text.innerHTML);
-        //console.log(this.testcases);
+        this.testcases = null;
     }
+
     show() {
+        if (this.tm_mode != this.canvas.tape.tm_mode) {
+            this.tm_mode = this.canvas.tape.tm_mode;
+            if (this.tm_mode) {
+                let text = document.getElementById('testfile_tm');
+                this.testcases = this.readTestCases(text.innerHTML);
+            } else {
+                let text = document.getElementById('testfile');
+                this.testcases = this.readTestCases(text.innerHTML);
+            }
+        }
         this.parent = document.createElement('div');
-	let w = window.open("","dialogue","menubar=no,location=no,resizable=no,scrollbars=no,status=yes,width=500,height=500");
+	let w = window.open("",this.canvas.id, "menubar=no,location=no,resizable=no,scrollbars=no,status=yes,width=700,height=500");
 	w.focus();
         let body = document.createElement('body');
 	w.document.body = body;
 	body.appendChild(this.parent);
         this.menu = this.createMenu();
-//            console.log('this.parent=' + this.parent);
         for (let o of this.menu) {
             this.parent.appendChild(o);
         }
         this.parent.style.visibility = 'visible';
         this.parent.style.display = 'block';
     }
-    showOriginal() {
-        if (this.parent == null) {
-            this.parent = document.getElementById('test');
-        }
-        this.menu = this.createMenu();
-//            console.log('this.parent=' + this.parent);
-        for (let o of this.menu) {
-            this.parent.appendChild(o);
-        }
-        this.parent.style.visibility = 'visible';
-        this.parent.style.display = 'block';
-    }
+
     hide() {
-//        console.log('this.parent=' + this.parent);
         if (this.parent != null) {
             this.parent.style.visibility = 'hidden';
             this.parent.style.display = 'none';
         }
-        
     }
+
     createSelect() {
         let p = document.createElement('p');
         let select = document.createElement('select');
@@ -61,7 +58,6 @@ class Test {
             let option = document.createElement('option');
             this.options.push(option);
             option.value = i;
-	    //console.log('testcases[' + i + ']=' + this.testcases[i].result);
             if (this.testcases[i].result == null) {
                 option.style.background = '#ffffff';
             } else if (this.testcases[i].result) {
@@ -77,6 +73,7 @@ class Test {
         p.appendChild(select);
         return p;
     }
+
     createClose() {
         let close_button = document.createElement('button');
         close_button.type = 'button';
@@ -88,11 +85,11 @@ class Test {
         };
         return close_button;
     }
+
     doTest() {
         if (this.select == null) return;
         let i = this.select.value;
         if (!i) return;
-        //console.log('i=' + JSON.stringify(i));
         let OK = true;
         this.resultArea.value = "";
         for (let c of this.testcases[i].cases) {
@@ -112,6 +109,7 @@ class Test {
             }
         }
     }
+
     createTest() {
         let button = document.createElement('button');
         button.type = 'button';
@@ -123,14 +121,16 @@ class Test {
         };
         return button;
     }
+
     createResultArea() {
         let tf = document.createElement('textarea');
         tf.readonly = true;
-        tf.cols = 50;
+        tf.cols = 70;
         tf.rows = 10;
         this.resultArea = tf;
         return tf;
     }
+
     createMenu() {
         let r = [];
         let h2Node = document.createElement('h2');
@@ -146,10 +146,6 @@ class Test {
         tr.appendChild(td1);
         let td2 = document.createElement('td');
         td2.appendChild(this.createTest());
-/*
-        td2.appendChild(document.createElement('br'));
-        td2.appendChild(this.createClose());
-*/
         tr.appendChild(td2);
         table.appendChild(tr);
         r.push(table)
@@ -157,9 +153,9 @@ class Test {
         r.push(document.createElement('hr'));
         return r;
     }
+
     readTestCases(text) {
         let lines = text.split('\n');
-//        console.log(lines);
         let r = [];
         let name = null;
         let cases = [];

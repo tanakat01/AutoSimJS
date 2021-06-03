@@ -9,6 +9,7 @@ class NFAState extends State {
     constructor(automaton) {
         super(automaton);
     }
+
     canBeInitial() {
         return true;
     }
@@ -18,6 +19,7 @@ class NFATransition extends Transition {
     constructor(automaton, src, dst) {
         super(automaton, src, dst);
     }
+
     canBeTransit(what) {
         return true;
     }
@@ -28,28 +30,26 @@ class NFA extends Automaton{
         super();
         this.getAlphabet().add(Alphabet_EPSILON);
     }
+
     createState() {
         return new NFAState(this);
     }
+
     createTransition(src, dst) {
-        for(const transition of this.transitions) {
-            if(transition.getSource() == src
+        for (const transition of this.transitions) {
+            if (transition.getSource() == src
                && transition.getDest() == dst) {
                 return null;
             }
         }
         return new NFATransition(this, src, dst);
     }
+
     doPlay() {
-        //console.log('initials=' + this.getInitialStates().toString());
         super.doPlay();
         let current = this.getCurrent();
-        //console.log('current=' + current.toString());
         let data = current.advance(Alphabet_EPSILON);
-        // console.log(data[0].toString());
         let traversed = data[1];
-/*
-*/
         let automaton = this;
         let step = 0;
         let timer = setInterval(function() {
@@ -68,15 +68,13 @@ class NFA extends Automaton{
                 t.setCursorProgress(step / 10);
             }
             automaton.canvas.repaint();
-//            console.log('step=' + step);
         }, 50);
     }
     testOne(test) {
         let str = '';
         let stateSet = this.getInitialStates();
-        if(stateSet.size() == 0) {
+        if (stateSet.size() == 0) {
           return [false, '**FAILURE** <No Initial State>'];
-	  //return [false, '\u3042\u3044\u3046\u3048\u30fc'];
         }
 
         let exTerm, isTerm;

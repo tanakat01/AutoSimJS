@@ -28,21 +28,18 @@ class ToolText extends Tool {
         let b = document.getElementById('text_button');
         b.style.border="solid 4px";
     }
+
     deselect(g) {
         super.deselect(g);
-        if(this.current != null) {
+        if (this.current != null) {
             this.current = null;
         }
-/*
-        if (this.popup != null) {
-            this.popup.style.visibility="hidden";
-        }
-*/
         let b = document.getElementById('text_button');
         b.style.border="none";
     }
 
     setHAlign(value) { this.halign = value; }
+
     setVAlign(value) { this.valign = value; }
 
     mouseReleased(g, e) {
@@ -51,18 +48,18 @@ class ToolText extends Tool {
         let y = e.clientY - rect.top;
 
         // deselect current label
-        if(this.current != null) {
+        if (this.current != null) {
             this.current = null;
         }
         // if nothing found, create a new label
-        if(this.current == null) {
+        if (this.current == null) {
             let item = new AutomatonLabel(this.getCanvas().getAutomaton());
 
             item.move(x, y).setAlignment(this.halign, this.valign);
             this.current = item.getLabel();
             this.getCanvas().getAutomaton().addComponent(item);
         }
-        if(this.current != null) {
+        if (this.current != null) {
             this.addText(g);
         }
         this.getCanvas().commitTransaction(false);
@@ -70,7 +67,7 @@ class ToolText extends Tool {
 
     draw(g) {
         super.draw(g);
-        if(this.current != null) this.current.drawCursor(g);
+        if (this.current != null) this.current.drawCursor(g);
     }
 
     addText(g) {
@@ -84,13 +81,4 @@ class ToolText extends Tool {
         this.current.exposeCursor(this.getCanvas(), g);
         this.getCanvas().commitTransaction(false);
     }
-/*
-    do_popup(n) {
-        if (this.current != null) {
-            if (n == "Delete") {
-                this.getCanvas().getAutomaton().remove(this.current);
-            }
-        }
-    }
-*/
 }
