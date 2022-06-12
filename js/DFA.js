@@ -68,13 +68,13 @@ class DFA extends Automaton{
             let data = stateSet.advance(lower_c);
             stateSet = data[0];
             if (stateSet.size() == 0) {
-                return [false, "**FAILURE** <String:'" + str + "', Expected:" + (exTerm ? "terminal" : "non-terminal") + ", Result:No transition>"];
+                return [false, "**FAILURE** <String:'" + str + "', Expected:" + (exTerm ? "final" : "non-final") + ", Result:No transition>"];
             }
             isTerm = stateSet.hasFinal();
             if (exTerm != isTerm) {
-                return [false, "**FAILURE** <String:'" + str + "', Expected:" + (exTerm ? "terminal" : "non-terminal") + ", Result:" + (isTerm ? "terminal" : "non-terminal") + ">"];
+                return [false, "**FAILURE** <String:'" + str + "', Expected:" + (exTerm ? "final" : "non-final") + ", Result:" + (isTerm ? "final" : "non-final") + ">"];
             }
         }
-        return [true, "SUCCESS <String:'" + str + "', Expected:" + (exTerm ? "terminal" : "non-terminal") + ", Result:" + (isTerm ? "terminal" : "non-terminal") + ">"];
+        return [true, "SUCCESS <String:'" + str + "', Expected:" + (exTerm ? "final" : "non-final") + ", Result:" + (isTerm ? "final" : "non-final") + ">"];
     }
 }
