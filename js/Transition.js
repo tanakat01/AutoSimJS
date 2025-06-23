@@ -11,8 +11,10 @@ class Transition extends AutomatonComponent {
         this.src = src;
         this.dst = dst;
         this.transits = "";
-        this.offset_theta = Transition_DEFAULT_OFFSET_THETA;
-        if (src == dst) this.offset_theta = Transition_DEFAULT_SELFLOOP_THETA;
+        //this.offset_theta = Transition_DEFAULT_OFFSET_THETA;
+        //if (src == dst) this.offset_theta = Transition_DEFAULT_SELFLOOP_THETA + Math.random() * 0.5;
+        this.offset_theta = Transition_DEFAULT_OFFSET_THETA * Math.random() * 1.0;
+        if (src == dst) this.offset_theta = Transition_DEFAULT_SELFLOOP_THETA + Math.random() * 0.5;
         this.label = new Label(this);
         
         this.bounds = null; // bounding box
