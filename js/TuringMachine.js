@@ -260,12 +260,12 @@ class TuringMachine extends DFA {
     }
 
     createTransition(src, dst) {
-        for (const transition of this.transitions) {
-            if (transition.getSource() == src
-               && transition.getDest() == dst) {
-                return null;
-            }
-        }
+        //for (const transition of this.transitions) {
+        //    if (transition.getSource() == src
+        //       && transition.getDest() == dst) {
+        //        return null;
+        //    }
+        //}
         return new TMTransition(this, src, dst);
     }
 
